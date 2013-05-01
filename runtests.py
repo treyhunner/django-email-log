@@ -11,6 +11,7 @@ sys.path.insert(0, abspath(dirname(__file__)))
 if not settings.configured:
     settings.configure(
         INSTALLED_APPS=(
+            'email_log',
             'email_log.tests',
         ),
         DATABASES={
@@ -18,6 +19,7 @@ if not settings.configured:
                 'ENGINE': 'django.db.backends.sqlite3',
             }
         },
+        EMAIL_LOG_BACKEND = 'django.core.mail.backends.locmem.EmailBackend',
     )
 
 
