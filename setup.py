@@ -14,7 +14,7 @@ setup(
     url='https://github.com/treyhunner/django-email-log',
     license='LICENSE',
     packages=find_packages(),
-    install_requires=['Django >= 1.3'],
+    install_requires=['Django >= 1.4.2'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
@@ -29,7 +29,7 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Framework :: Django',
     ],
-    tests_require=['Django >= 1.3'],
+    tests_require=['Django >= 1.4.2'],
     include_package_data=True,
     test_suite='runtests.runtests',
 )
