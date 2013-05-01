@@ -1,0 +1,9 @@
+*.pyc
+dist
+*.egg-info
+.coverage
+.tox
+htmlcov
+build
+docs/_build
+MANIFEST
