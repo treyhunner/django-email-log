@@ -90,7 +90,7 @@ class EmailBackendTests(TestCase):
         self.assertEmailCorrect(email, **self.plain_args)
 
 
-class EmailBackendTests(TestCase):
+class AdminTests(TestCase):
 
     def setUp(self):
         user = User(username="user", is_superuser=True, is_staff=True)
