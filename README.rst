@@ -1,3 +1,4 @@
+================
 django-email-log
 ================
 
@@ -20,10 +21,8 @@ Documentation for django-email-log is available at https://django-email-log.read
 
 Submit issues on Github: https://github.com/treyhunner/django-email-log/issues
 
-Pull requests are welcome.  Read the `CONTRIBUTING`_ file for tips on submitting
+Pull requests are welcome.  Read the CONTRIBUTING file for tips on submitting
 a pull request.
-
-.. _CONTRIBUTING: CONTRIBUTING.rst
 
 
 Related Projects
