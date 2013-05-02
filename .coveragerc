@@ -1,0 +1,3 @@
+[run]
+source = email_log
+omit = */migrations/*
