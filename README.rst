@@ -10,3 +10,23 @@ django-email-log
    :alt: Coverage Status
 
 Django email backend that logs all sent emails.
+
+This app requires Django 1.4.2 or greater and Python 2.6 or greater.
+
+Documentation for django-email-log is available at https://django-email-log.readthedocs.org/
+
+
+Related Projects
+----------------
+
+Thanks to the following related projects for inspiration:
+
+- `django-mailer`_
+- `django-post_office`_
+- `django-celery-email`_
+- Email logger mentioned in this `StackOverflow answer`_
+
+.. _django-mailer: https://github.com/pinax/django-mailer
+.. _django-celer-email: https://github.com/pmclanahan/django-celery-email
+.. _django-post_office: https://github.com/ui/django-post_office
+.. _stackoverflow answer: http://stackoverflow.com/a/7553759/98187
