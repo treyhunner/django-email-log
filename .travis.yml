@@ -7,12 +7,14 @@ python:
 env:
   - DJANGO=Django==1.4.2
   - DJANGO=Django==1.5.0
+  - DJANGO=Django==1.5.0 SOUTH=1
 
 install:
   - pip install --use-mirrors $DJANGO
   - pip install --use-mirrors coverage coveralls
+  - sh -c "if [ '$SOUTH' = '1' ]; then pip install South==0.7.6; fi"
 
-script: coverage run -a --branch --include="email_log/*" --omit="email_log/tests/*" setup.py test
+script: coverage run -a --branch --source=email_log setup.py test
 
 matrix:
   include:
