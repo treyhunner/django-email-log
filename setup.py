@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-email-log',
-    version='0.0.9.post1',
+    version='0.1.0',
     author='Trey Hunner',
     author_email='trey@treyhunner.com',
     description='Django email backend that logs all emails',
