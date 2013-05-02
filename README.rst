@@ -1,7 +1,7 @@
 django-email-log
 ================
 
-.. image:: https://travis-ci.org/treyhunner/django-email-log.png
+.. image:: https://travis-ci.org/treyhunner/django-email-log.png?branch=master
    :target: https://travis-ci.org/treyhunner/django-email-log
    :alt: Test Status
 
