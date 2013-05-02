@@ -7,7 +7,7 @@ setup(
     author='Trey Hunner',
     author_email='trey@treyhunner.com',
     description='Django email backend that logs all emails',
-    long_description='\n'.join((
+    long_description='\n\n'.join((
         open('README.rst').read(),
         open('CHANGES.rst').read(),
     )),
