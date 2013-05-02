@@ -13,7 +13,17 @@ Django email backend that logs all sent emails.
 
 This app requires Django 1.4.2 or greater and Python 2.6 or greater.
 
+Getting Help
+------------
+
 Documentation for django-email-log is available at https://django-email-log.readthedocs.org/
+
+Submit issues on Github: https://github.com/treyhunner/django-email-log/issues
+
+Pull requests are welcome.  Read the `CONTRIBUTING` file for tips on submitting
+a pull request.
+
+.. _CONTRIBUTING: CONTRIBUTING.rst
 
 
 Related Projects
