@@ -1,22 +1,26 @@
-.. django-email-log documentation master file, created by
-   sphinx-quickstart on Wed May  1 11:50:21 2013.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+django-email-log
+================
 
-Welcome to django-email-log's documentation!
-============================================
+Django-email-log is a Django app that logs all outgoing emails to the database.
+
+All emails are logged in an Email model and emails may be viewed from the admin
+site.  When an email fails to send the error is noted in the model also.
+
+Django-email-log can also be used with other custom email backends by setting
+the ``EMAIL_LOG_BACKEND`` setting to your custom email backend.
+
+.. warning::
+    This app should not be used if outgoing emails may contain sensitive
+    information that shouldn't be logged in the database!
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
+   usage
 
+Visit the project `on Github`_ to view the source, submit issues and pull
+requests.
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+.. _on github: https://github.com/treyhunner/django-email-log
