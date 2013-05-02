@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils.six import text_type
+from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.core import mail
 
@@ -87,3 +88,22 @@ class EmailBackendTests(TestCase):
         email = Email.objects.get()
         self.assertFalse(email.ok)
         self.assertEmailCorrect(email, **self.plain_args)
+
+
+class EmailBackendTests(TestCase):
+
+    def setUp(self):
+        user = User(username="user", is_superuser=True, is_staff=True)
+        user.set_password("pass")
+        user.save()
+        self.client.login(username="user", password="pass")
+
+    def test_add_page(self):
+        page = self.client.get('/admin/email_log/email/add/')
+        self.assertEqual(page.status_code, 403)
+
+    def test_delete_page(self):
+        email = Email.objects.create()
+        page = self.client.get('/admin/email_log/email/{0}/delete/'
+                .format(email.pk))
+        self.assertEqual(page.status_code, 403)

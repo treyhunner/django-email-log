@@ -11,6 +11,10 @@ sys.path.insert(0, abspath(dirname(__file__)))
 if not settings.configured:
     settings.configure(
         INSTALLED_APPS=(
+            'django.contrib.contenttypes',
+            'django.contrib.sessions',
+            'django.contrib.auth',
+            'django.contrib.admin',
             'email_log',
             'email_log.tests',
         ),
@@ -20,6 +24,7 @@ if not settings.configured:
             }
         },
         EMAIL_LOG_BACKEND = 'django.core.mail.backends.locmem.EmailBackend',
+        ROOT_URLCONF='email_log.tests.urls',
     )
 
 
