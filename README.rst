@@ -27,6 +27,6 @@ Thanks to the following related projects for inspiration:
 - Email logger mentioned in this `StackOverflow answer`_
 
 .. _django-mailer: https://github.com/pinax/django-mailer
-.. _django-celer-email: https://github.com/pmclanahan/django-celery-email
+.. _django-celery-email: https://github.com/pmclanahan/django-celery-email
 .. _django-post_office: https://github.com/ui/django-post_office
 .. _stackoverflow answer: http://stackoverflow.com/a/7553759/98187
