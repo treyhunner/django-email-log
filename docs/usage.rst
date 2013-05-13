@@ -4,11 +4,13 @@ Usage
 Installation
 ------------
 
-Install from PyPI:
+Install from `PyPI`_:
 
 .. code-block:: bash
 
     $ pip install django-email-log
+
+.. _PyPI: https://pypi.python.org/pypi/django-email-log/
 
 
 Quickstart
