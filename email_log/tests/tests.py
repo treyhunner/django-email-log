@@ -10,6 +10,8 @@ from django.core import mail
 from email_log.models import Email
 from email_log.conf import Settings
 
+FAILING_BACKEND = 'email_log.tests.backends.FailingEmailBackend'
+
 
 class EmailModelTests(TestCase):
 
@@ -73,7 +75,7 @@ class EmailBackendTests(TestCase):
             self.assertEqual(message.subject, "Subject line")
             self.assertEqual(message.body, "Message body")
 
-    @override_settings(EMAIL_LOG_BACKEND='email_log.tests.backends.FailingEmailBackend')
+    @override_settings(EMAIL_LOG_BACKEND=FAILING_BACKEND)
     def test_send_failure(self):
         self.assertRaises(NotImplementedError, self.send_mail,
                           fail_silently=False, **self.plain_args)
@@ -81,7 +83,7 @@ class EmailBackendTests(TestCase):
         self.assertFalse(email.ok)
         self.assertEmailCorrect(email, **self.plain_args)
 
-    @override_settings(EMAIL_LOG_BACKEND='email_log.tests.backends.FailingEmailBackend')
+    @override_settings(EMAIL_LOG_BACKEND=FAILING_BACKEND)
     def test_send_failure_silent(self):
         sent = self.send_mail(fail_silently=True, **self.plain_args)
         self.assertEqual(sent, 0)
@@ -105,5 +107,5 @@ class AdminTests(TestCase):
     def test_delete_page(self):
         email = Email.objects.create()
         page = self.client.get('/admin/email_log/email/{0}/delete/'
-                .format(email.pk))
+                               .format(email.pk))
         self.assertEqual(page.status_code, 403)

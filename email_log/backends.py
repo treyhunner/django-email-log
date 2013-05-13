@@ -18,10 +18,10 @@ class EmailBackend(BaseEmailBackend):
         for message in email_messages:
             recipients = '; '.join(message.to)
             email = Email.objects.create(
-                    from_email=message.from_email,
-                    recipients=recipients,
-                    subject=message.subject,
-                    body=message.body,
+                from_email=message.from_email,
+                recipients=recipients,
+                subject=message.subject,
+                body=message.body,
             )
             message.connection = self.connection
             num_sent += message.send()
