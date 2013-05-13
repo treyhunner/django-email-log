@@ -1,6 +1,5 @@
 from django.core.mail import get_connection
 from django.core.mail.backends.base import BaseEmailBackend
-from django.core.mail.backends.smtp import EmailBackend
 
 from .conf import settings
 from .models import Email
