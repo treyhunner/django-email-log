@@ -10,6 +10,14 @@ django-email-log
    :target: https://coveralls.io/r/treyhunner/django-email-log
    :alt: Coverage Status
 
+.. image:: https://pypip.in/v/django-email-log/badge.png
+   :target: https://crate.io/packages/django-email-log
+   :alt: Latest Version
+
+.. image:: https://pypip.in/d/django-email-log/badge.png
+   :target: https://crate.io/packages/django-email-log
+   :alt: Download Count
+
 Django email backend that logs all sent emails.
 
 This app requires Django 1.4.2 or greater and Python 2.6 or greater.
