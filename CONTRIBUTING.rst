@@ -1,13 +1,22 @@
-Contributing to django-email-log
-================================
+Contributing
+============
+
+Below is a list of tips for submitting issues and pull requests.  These are
+suggestions and not requirements.
+
+Submitting Issues
+-----------------
+
+Issues are often easier to reproduce/resolve when they have:
+
+- A pull request with a failing test demonstrating the issue
+- A code example that produces the issue consistently
+- A traceback (when applicable)
 
 Pull Requests
 -------------
 
-Feel free to open pull requests before you've finished your code or tests.
-Opening your pull request soon will allow others to comment on it sooner.
-
-A checklist of things to remember when making a feature:
+When creating a pull request, try to:
 
 - Write tests if applicable
 - Note important changes in the `CHANGES`_ file
@@ -22,17 +31,19 @@ A checklist of things to remember when making a feature:
 Testing
 -------
 
-Please add tests for your pull requests and make sure your changes don't break
-existing tests.  To run the tests against your code::
+Please add tests for your code and ensure existing tests don't break.  To run
+the tests against your code::
 
     python setup.py test
 
-Please use tox to test the code against all supported versions of Python and
-Django.  First install tox::
+Please use tox to test the code against supported Python and Django versions.
+First install tox::
 
     pip install tox
 
-To run tox and generate an HTML code coverage report (available in the
-``htmlcov`` directory)::
+To run tox and generate a coverage report (in ``htmlcov`` directory)::
 
     ./runtests.sh
+
+**Please note**: Before a pull request can be merged, all tests must pass and
+code/branch coverage in tests must be 100%.
