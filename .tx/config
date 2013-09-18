@@ -1,0 +1,9 @@
+[main]
+host = https://www.transifex.com
+
+[django-email-log.django]
+file_filter = email_log/locale/<lang>/LC_MESSAGES/django.po
+source_file = email_log/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
