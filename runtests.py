@@ -25,6 +25,9 @@ if not settings.configured:
         },
         EMAIL_LOG_BACKEND = 'django.core.mail.backends.locmem.EmailBackend',
         ROOT_URLCONF='email_log.tests.urls',
+        SOUTH_MIGRATION_MODULES={
+            'email_log': 'email_log.south_migrations',
+        },
     )
 
 
