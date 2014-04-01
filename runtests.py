@@ -26,17 +26,20 @@ if not settings.configured:
         },
         EMAIL_LOG_BACKEND = 'django.core.mail.backends.locmem.EmailBackend',
         ROOT_URLCONF='email_log.tests.urls',
-        SOUTH_MIGRATION_MODULES={
-            'email_log': 'email_log.south_migrations',
-        },
     )
 
 
 def runtests():
     if hasattr(django, 'setup'):
         django.setup()
-    from django.test.simple import DjangoTestSuiteRunner
-    failures = DjangoTestSuiteRunner(failfast=False).run_tests(['tests'])
+    try:
+        from django.test.runner import DiscoverRunner
+    except:
+        from django.test.simple import DjangoTestSuiteRunner
+        failures = DjangoTestSuiteRunner(failfast=False).run_tests(['tests'])
+    else:
+        failures = DiscoverRunner(failfast=False).run_tests(
+            ['email_log.tests'])
     sys.exit(failures)
 
 
