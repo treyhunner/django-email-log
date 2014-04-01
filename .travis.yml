@@ -5,8 +5,8 @@ python:
   - "2.7"
 
 env:
-  - DJANGO=Django==1.4.2
-  - DJANGO=Django==1.5.0
+  - DJANGO=Django==1.4.10
+  - DJANGO=Django==1.5.5
 
 install:
   - pip install --use-mirrors $DJANGO
@@ -17,8 +17,8 @@ script: coverage run -a --branch setup.py test
 matrix:
   include:
    - python: 3.2
-     env: DJANGO=Django==1.5.0
+     env: DJANGO=Django==1.5.5
    - python: 3.3
-     env: DJANGO=Django==1.5.0
+     env: DJANGO=Django==1.5.5
 
 after_success: coveralls
