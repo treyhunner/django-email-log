@@ -18,6 +18,10 @@ django-email-log
    :target: https://crate.io/packages/django-email-log
    :alt: Download Count
 
+.. image:: https://requires.io/github/treyhunner/django-email-log/requirements.png?branch=master
+   :target: https://requires.io/github/treyhunner/django-email-log/requirements
+   :alt: Requirements Status/
+
 Django email backend that logs all sent emails.
 
 This app requires Django 1.4.2 or greater and Python 2.6 or greater.
