@@ -116,6 +116,13 @@ class AdminTests(TestCase):
                                .format(email.pk))
         self.assertEqual(page.status_code, 403)
 
+    def test_app_name(self):
+        page = self.client.get('/admin/')
+        if VERSION < (1, 7, 0):
+            self.assertContains(page, "Email_Log")
+        else:
+            self.assertContains(page, "Email log")
+
 
 class SouthSupportTests(TestCase):
 
