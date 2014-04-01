@@ -1,5 +1,11 @@
 from __future__ import unicode_literals
+try:
+    from unittest import skipUnless
+except ImportError:  # Python 2.6
+    from django.utils.unittest import skipUnless
 
+from django import VERSION
+from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils.six import text_type
@@ -109,3 +115,14 @@ class AdminTests(TestCase):
         page = self.client.get('/admin/email_log/email/{0}/delete/'
                                .format(email.pk))
         self.assertEqual(page.status_code, 403)
+
+
+class SouthSupportTests(TestCase):
+
+    @skipUnless(VERSION < (1, 7, 0), "test only applies to 1.6 and below")
+    def test_import_migrations_module(self):
+        try:
+            from email_log.migrations import __doc__  # noqa
+        except ImproperlyConfigured as e:
+            exception = e
+        self.assertIn("SOUTH_MIGRATION_MODULES", exception.args[0])

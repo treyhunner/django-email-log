@@ -1,4 +1,4 @@
 [run]
 source = email_log
-omit = */migrations/*
+omit = */south_migrations/*
 branch = 1
