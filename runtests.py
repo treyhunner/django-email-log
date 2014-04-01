@@ -2,6 +2,7 @@
 import sys
 from os.path import abspath, dirname
 
+import django
 from django.conf import settings
 
 
@@ -25,10 +26,15 @@ if not settings.configured:
         },
         EMAIL_LOG_BACKEND = 'django.core.mail.backends.locmem.EmailBackend',
         ROOT_URLCONF='email_log.tests.urls',
+        SOUTH_MIGRATION_MODULES={
+            'email_log': 'email_log.south_migrations',
+        },
     )
 
 
 def runtests():
+    if hasattr(django, 'setup'):
+        django.setup()
     from django.test.simple import DjangoTestSuiteRunner
     failures = DjangoTestSuiteRunner(failfast=False).run_tests(['tests'])
     sys.exit(failures)

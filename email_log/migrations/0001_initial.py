@@ -1,42 +1,29 @@
-# -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+# encoding: utf8
+from django.db import models, migrations
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'Email'
-        db.create_table(u'email_log_email', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('from_email', self.gf('django.db.models.fields.TextField')()),
-            ('recipients', self.gf('django.db.models.fields.TextField')()),
-            ('subject', self.gf('django.db.models.fields.TextField')()),
-            ('body', self.gf('django.db.models.fields.TextField')()),
-            ('ok', self.gf('django.db.models.fields.BooleanField')(default=False, db_index=True)),
-            ('date_sent', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, db_index=True, blank=True)),
-        ))
-        db.send_create_signal(u'email_log', ['Email'])
+    dependencies = [
+    ]
 
-
-    def backwards(self, orm):
-        # Deleting model 'Email'
-        db.delete_table(u'email_log_email')
-
-
-    models = {
-        u'email_log.email': {
-            'Meta': {'ordering': "(u'-date_sent',)", 'object_name': 'Email'},
-            'body': ('django.db.models.fields.TextField', [], {}),
-            'date_sent': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
-            'from_email': ('django.db.models.fields.TextField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'ok': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'db_index': 'True'}),
-            'recipients': ('django.db.models.fields.TextField', [], {}),
-            'subject': ('django.db.models.fields.TextField', [], {})
-        }
-    }
-
-    complete_apps = ['email_log']
+    operations = [
+        migrations.CreateModel(
+            name='Email',
+            fields=[
+                (u'id', models.AutoField(verbose_name=u'ID', serialize=False, auto_created=True, primary_key=True)),
+                ('from_email', models.TextField(verbose_name=u'from e-mail')),
+                ('recipients', models.TextField(verbose_name=u'recipients')),
+                ('subject', models.TextField(verbose_name=u'subject')),
+                ('body', models.TextField(verbose_name=u'body')),
+                ('ok', models.BooleanField(default=False, db_index=True, verbose_name=u'ok')),
+                ('date_sent', models.DateTimeField(auto_now_add=True, verbose_name=u'date sent', db_index=True)),
+            ],
+            options={
+                u'ordering': (u'-date_sent',),
+                u'verbose_name': u'e-mail',
+                u'verbose_name_plural': u'e-mails',
+            },
+            bases=(models.Model,),
+        ),
+    ]
