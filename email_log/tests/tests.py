@@ -135,7 +135,7 @@ class SouthSupportTests(TestCase):
             'south',
         )
 
-    @skipUnless(VERSION >= (1, 7, 0), "test only applies to 1.6 and below")
+    @skipUnless(VERSION >= (1, 7, 0), "test only applies to 1.7 and above")
     def test_nonsouth_migrations(self):
         from email_log.migrations import __file__ as migrations_file
         self.assertEqual(
