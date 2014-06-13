@@ -1,0 +1,52 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Rodrigo Deodoro, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: django-email-log\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-13 16:55-0300\n"
+"POT-Creation-Date: 2014-06-13 16:55-0300\n"
+"Last-Translator: Rodrigo Deodoro\n"
+"Language-Team:\n"
+"Language: pt-br\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: models.py:13
+msgid "from e-mail"
+msgstr "Remetente"
+
+#: models.py:14
+msgid "recipients"
+msgstr "Destinatários"
+
+#: models.py:15
+msgid "subject"
+msgstr "Assunto"
+
+#: models.py:16
+msgid "body"
+msgstr "Mensagem"
+
+#: models.py:17
+msgid "ok"
+msgstr "Status"
+
+#: models.py:18
+msgid "date sent"
+msgstr "Data de envio"
+
+#: models.py:24
+msgid "e-mail"
+msgstr "e-mail"
+
+#: models.py:25
+msgid "e-mails"
+msgstr "e-mails"
