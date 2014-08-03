@@ -1,9 +1,10 @@
 from setuptools import setup, find_packages
+import email_log
 
 
 setup(
     name='django-email-log',
-    version='0.1.0.post1',
+    version=email_log.__version__,
     author='Trey Hunner',
     author_email='trey@treyhunner.com',
     description='Django email backend that logs all emails',
