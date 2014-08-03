@@ -37,13 +37,10 @@ Using with Django South
 
 The ``migrations`` sub-package contains migrations for Django 1.7.  Django South migrations are stored in the ``south_migrations`` sub-package.
 
-In order to use South with django-email-log, you will need to customize the ``SOUTH_MIGRATION_MODULES`` setting:
+There are two ways to use django-email-log with South.  Either:
 
-.. code-block:: python
-
-    SOUTH_MIGRATION_MODULES = {
-        'email_log': 'email_log.south_migrations',
-    }
+1. Install South 1.0
+2. Customize South to use the ``email_log.south_migrations`` migrations package
 
 
 Using with other email backends
