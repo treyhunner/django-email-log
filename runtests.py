@@ -25,6 +25,10 @@ if not settings.configured:
             }
         },
         EMAIL_LOG_BACKEND = 'django.core.mail.backends.locmem.EmailBackend',
+        MIDDLEWARE_CLASSES=(
+            'django.contrib.sessions.middleware.SessionMiddleware',
+            'django.contrib.auth.middleware.AuthenticationMiddleware',
+        ),
         ROOT_URLCONF='email_log.tests.urls',
     )
 
