@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+import os
 try:
     from unittest import skipUnless
 except ImportError:  # Python 2.6
@@ -138,9 +139,17 @@ class AdminTests(TestCase):
 class SouthSupportTests(TestCase):
 
     @skipUnless(VERSION < (1, 7, 0), "test only applies to 1.6 and below")
-    def test_import_migrations_module(self):
-        try:
-            from email_log.migrations import __doc__  # noqa
-        except ImproperlyConfigured as e:
-            exception = e
-        self.assertIn("SOUTH_MIGRATION_MODULES", exception.args[0])
+    def test_south_migrations(self):
+        from email_log.migrations import __file__ as migrations_file
+        self.assertEqual(
+            os.path.basename(os.path.dirname(os.path.dirname(migrations_file))),
+            'south',
+        )
+
+    @skipUnless(VERSION >= (1, 7, 0), "test only applies to 1.7 and above")
+    def test_nonsouth_migrations(self):
+        from email_log.migrations import __file__ as migrations_file
+        self.assertEqual(
+            os.path.basename(os.path.dirname(os.path.dirname(migrations_file))),
+            'nonsouth',
+        )
