@@ -110,7 +110,8 @@ class AdminTests(TestCase):
         page = self.client.get('/admin/email_log/email/%s/' % email.pk)
         self.assertNotIn(b'<div class="form-row field-body">', page.content)
         self.assertNotIn(initial, page.content)
-        self.assertIn(b'<div class="form-row field-body_formatted">', page.content)
+        self.assertIn(b'<div class="form-row field-body_formatted">',
+                      page.content)
         self.assertIn(b'<p>This<br />is<br />a<br />test</p>', page.content)
         self.assertEqual(page.status_code, 200)
 
