@@ -1,7 +1,7 @@
 CHANGES
 =======
 
-Tip   (unreleased)
+0.2.0 (2014-08-03)
 ------------------
 
 - Added Django 1.6 and Django 1.7 support.
