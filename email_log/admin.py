@@ -16,7 +16,7 @@ class EmailAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, *args, **kwargs):
         return False
-        
+
     def body_formatted(self, obj):
         return linebreaksbr(obj.body)
     body_formatted.short_description = "body"
