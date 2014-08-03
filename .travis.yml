@@ -12,8 +12,7 @@ env:
   - DJANGO=https://github.com/django/django/tarball/stable/1.7.x
 
 install:
-  - pip install --use-mirrors $DJANGO
-  - pip install --use-mirrors coverage coveralls
+  - pip install --use-mirrors coverage coveralls $DJANGO
 
 script: coverage run -a --branch setup.py test
 
