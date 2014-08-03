@@ -110,6 +110,17 @@ class AdminTests(TestCase):
         page = self.client.get('/admin/email_log/email/add/')
         self.assertEqual(page.status_code, 403)
 
+    def test_body_is_formatted(self):
+        initial = b"This\nis\na\ntest"
+        email = Email.objects.create(body=initial)
+        page = self.client.get('/admin/email_log/email/%s/' % email.pk)
+        self.assertNotIn(b'<div class="form-row field-body">', page.content)
+        self.assertNotIn(initial, page.content)
+        self.assertIn(b'<div class="form-row field-body_formatted">',
+                      page.content)
+        self.assertIn(b'<p>This<br />is<br />a<br />test</p>', page.content)
+        self.assertEqual(page.status_code, 200)
+
     def test_delete_page(self):
         email = Email.objects.create()
         page = self.client.get('/admin/email_log/email/{0}/delete/'

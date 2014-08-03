@@ -3,28 +3,26 @@ language: python
 python:
   - 2.6
   - 2.7
-  - 3.2
   - 3.3
 
 env:
-  - DJANGO=Django==1.4.10
-  - DJANGO=Django==1.5.5
-  - DJANGO=Django==1.6.2
-  - DJANGO=https://github.com/django/django/tarball/master
+  - DJANGO=Django==1.4.13
+  - DJANGO=Django==1.5.8
+  - DJANGO=Django==1.6.5
+  - DJANGO=https://github.com/django/django/tarball/stable/1.7.x
 
 install:
-  - pip install --use-mirrors $DJANGO
-  - pip install --use-mirrors coverage coveralls
+  - pip install --use-mirrors coverage coveralls $DJANGO
 
 script: coverage run -a --branch setup.py test
 
 matrix:
   exclude:
    - python: 2.6
-     env: DJANGO=https://github.com/django/django/tarball/master
-   - python: 3.2
-     env: DJANGO=Django==1.4.10
+     env: DJANGO=Django==1.6.5
+   - python: 2.6
+     env: DJANGO=https://github.com/django/django/tarball/stable/1.7.x
    - python: 3.3
-     env: DJANGO=Django==1.4.10
+     env: DJANGO=Django==1.4.13
 
 after_success: coveralls

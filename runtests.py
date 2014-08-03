@@ -4,6 +4,7 @@ from os.path import abspath, dirname
 
 import django
 from django.conf import settings
+import django
 
 
 sys.path.insert(0, abspath(dirname(__file__)))
@@ -25,6 +26,10 @@ if not settings.configured:
             }
         },
         EMAIL_LOG_BACKEND = 'django.core.mail.backends.locmem.EmailBackend',
+        MIDDLEWARE_CLASSES=(
+            'django.contrib.sessions.middleware.SessionMiddleware',
+            'django.contrib.auth.middleware.AuthenticationMiddleware',
+        ),
         ROOT_URLCONF='email_log.tests.urls',
     )
 
@@ -34,12 +39,14 @@ def runtests():
         django.setup()
     try:
         from django.test.runner import DiscoverRunner
-    except:
+        runner_class = DiscoverRunner
+        test_args = ['email_log.tests']
+    except ImportError:
         from django.test.simple import DjangoTestSuiteRunner
-        failures = DjangoTestSuiteRunner(failfast=False).run_tests(['tests'])
-    else:
-        failures = DiscoverRunner(failfast=False).run_tests(
-            ['email_log.tests'])
+        runner_class = DjangoTestSuiteRunner
+        test_args = ['tests']
+
+    failures = runner_class(failfast=False).run_tests(test_args)
     sys.exit(failures)
 
 
