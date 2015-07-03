@@ -10,7 +10,7 @@ class Email(models.Model):
 
     """Model to store outgoing email information"""
 
-    from_email = models.TextField(_("from e-mail"))
+    from_email = models.TextField(_("from email"))
     recipients = models.TextField(_("recipients"))
     subject = models.TextField(_("subject"))
     body = models.TextField(_("body"))
@@ -22,6 +22,6 @@ class Email(models.Model):
         return "{s.recipients}: {s.subject}".format(s=self)
 
     class Meta:
-        verbose_name = _("e-mail")
-        verbose_name_plural = _("e-mails")
+        verbose_name = _("email")
+        verbose_name_plural = _("emails")
         ordering = ('-date_sent',)

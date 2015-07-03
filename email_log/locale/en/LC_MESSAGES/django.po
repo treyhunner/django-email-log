@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: models.py:13
-msgid "from e-mail"
+msgid "from email"
 msgstr ""
 
 #: models.py:14
@@ -42,9 +42,9 @@ msgid "date sent"
 msgstr ""
 
 #: models.py:24
-msgid "e-mail"
+msgid "email"
 msgstr ""
 
 #: models.py:25
-msgid "e-mails"
+msgid "emails"
 msgstr ""

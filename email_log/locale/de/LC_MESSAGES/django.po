@@ -19,8 +19,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: models.py:13
-msgid "from e-mail"
-msgstr "Von E-Mail"
+msgid "from email"
+msgstr "Von EMail"
 
 #: models.py:14
 msgid "recipients"
@@ -43,9 +43,9 @@ msgid "date sent"
 msgstr "Sendedatum"
 
 #: models.py:24
-msgid "e-mail"
-msgstr "E-Mail"
+msgid "email"
+msgstr "Email"
 
 #: models.py:25
-msgid "e-mails"
-msgstr "E-Mails"
+msgid "emails"
+msgstr "Emails"

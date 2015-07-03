@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: models.py:13
-msgid "from e-mail"
+msgid "from email"
 msgstr "Remetente"
 
 #: models.py:14
@@ -44,9 +44,9 @@ msgid "date sent"
 msgstr "Data de envio"
 
 #: models.py:24
-msgid "e-mail"
-msgstr "e-mail"
+msgid "email"
+msgstr "email"
 
 #: models.py:25
-msgid "e-mails"
-msgstr "e-mails"
+msgid "emails"
+msgstr "emails"
