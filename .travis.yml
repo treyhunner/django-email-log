@@ -4,6 +4,7 @@ python:
   - 2.6
   - 2.7
   - 3.3
+  - 3.7
 
 env:
   - DJANGO=Django==1.4.15
@@ -13,7 +14,7 @@ env:
   - DJANGO=https://github.com/django/django/tarball/master
 
 install:
-  - pip install --use-mirrors coverage coveralls $DJANGO
+  - pip install coverage coveralls $DJANGO
 
 script: coverage run -a --branch setup.py test
 
@@ -27,5 +28,9 @@ matrix:
      env: DJANGO=https://github.com/django/django/tarball/master
    - python: 3.3
      env: DJANGO=Django==1.4.15
+   - python: 3.7
+     env: DJANGO=Django==1.4.15
+   - python: 3.7
+     env: DJANGO=Django==1.5.10
 
 after_success: coveralls
