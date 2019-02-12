@@ -2,12 +2,12 @@
 django-email-log
 ================
 
-.. image:: https://travis-ci.org/treyhunner/django-email-log.png?branch=master
-   :target: https://travis-ci.org/treyhunner/django-email-log
+.. image:: https://travis-ci.org/mark0978/django-email-log.png?branch=master
+   :target: https://travis-ci.org/mark0978/django-email-log
    :alt: Test Status
 
-.. image:: https://coveralls.io/repos/treyhunner/django-email-log/badge.png?branch=master
-   :target: https://coveralls.io/r/treyhunner/django-email-log
+.. image:: https://coveralls.io/repos/mark0978/django-email-log/badge.png?branch=master
+   :target: https://coveralls.io/r/mark0978/django-email-log
    :alt: Coverage Status
 
 .. image:: https://pypip.in/v/django-email-log/badge.png
@@ -18,8 +18,8 @@ django-email-log
    :target: https://crate.io/packages/django-email-log
    :alt: Download Count
 
-.. image:: https://requires.io/github/treyhunner/django-email-log/requirements.png?branch=master
-   :target: https://requires.io/github/treyhunner/django-email-log/requirements
+.. image:: https://requires.io/github/mark0978/django-email-log/requirements.png?branch=master
+   :target: https://requires.io/github/mark0978/django-email-log/requirements
    :alt: Requirements Status/
 
 Django email backend that logs all sent emails.
@@ -33,7 +33,7 @@ Documentation for django-email-log is available at https://django-email-log.read
 
 This app is available on `PyPI`_.
 
-Submit issues on Github: https://github.com/treyhunner/django-email-log/issues
+Submit issues on Github: https://github.com/mark0978/django-email-log/issues
 
 Pull requests are welcome.  Read the CONTRIBUTING file for tips on submitting
 a pull request.
