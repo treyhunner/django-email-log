@@ -9,6 +9,8 @@ CHANGES
 - Fixed security vulnerability if email contained any text created by the user.
 - Added a template to display the email to prevent the vulnerability
 - Tox testing and Travis CI updated for new versions of Django and Python
+- Had to adjust Travis to use dist:xenial because of the need for SQLite 3.8.3 which meant I could
+  not test with Python 3.4 (which is the minimum version that supports Django 1.11)
 
 0.2.0 (2014-08-03)
 ------------------
