@@ -33,10 +33,9 @@ Documentation for django-email-log is available at https://django-email-log.read
 
 This app is available on `PyPI`_.
 
-Submit issues on Github: https://github.com/mark0978/django-email-log/issues
+Submit issues on Github: https://github.com/treyhunner/django-email-log/issues
 
-Pull requests are welcome.  Read the CONTRIBUTING file for tips on submitting
-a pull request.
+Pull requests are welcome. Read the CONTRIBUTING file for tips on submitting a pull request.
 
 .. _PyPI: https://pypi.python.org/pypi/django-email-log/
 
