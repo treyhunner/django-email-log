@@ -13,7 +13,10 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='email',
-            options={'ordering': ('-date_sent',), 'verbose_name_plural': 'emails', 'verbose_name': 'email'},
+            options={
+                'ordering': ('-date_sent',),
+                'verbose_name_plural': 'emails',
+                'verbose_name': 'email'},
         ),
         migrations.AlterField(
             model_name='email',

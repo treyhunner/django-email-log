@@ -4,7 +4,6 @@ from os.path import abspath, dirname
 
 import django
 from django.conf import settings
-import django
 
 
 sys.path.insert(0, abspath(dirname(__file__)))
@@ -17,6 +16,7 @@ if not settings.configured:
             'django.contrib.sessions',
             'django.contrib.auth',
             'django.contrib.admin',
+            'django.contrib.messages', # Required for v3+ of Django
             'email_log',
             'email_log.tests',
         ),
@@ -26,9 +26,10 @@ if not settings.configured:
             }
         },
         EMAIL_LOG_BACKEND = 'django.core.mail.backends.locmem.EmailBackend',
-        MIDDLEWARE_CLASSES=(
+        MIDDLEWARE = (
             'django.contrib.sessions.middleware.SessionMiddleware',
             'django.contrib.auth.middleware.AuthenticationMiddleware',
+            'django.contrib.messages.middleware.MessageMiddleware',
         ),
         ROOT_URLCONF='email_log.tests.urls',
         TEMPLATES = [
@@ -49,7 +50,7 @@ if not settings.configured:
                     ],
                 },
             },
-        ]        
+        ]
     )
 
 

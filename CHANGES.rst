@@ -1,6 +1,16 @@
 CHANGES
 =======
 
+1.0.0 (2019-02-13)
+------------------
+
+- Added Django 2.x support
+- Remove Django < 1.11 support (older version will work for them)
+- Fixed security vulnerability if email contained any text created by the user.
+- Added a template to display the email to prevent the vulnerability
+- Tox testing and Travis CI updated for new versions of Django and Python
+- TravisCI.org does not support Python 3.7 at this time.
+
 0.2.0 (2014-08-03)
 ------------------
 
