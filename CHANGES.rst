@@ -9,7 +9,6 @@ CHANGES
 - Fixed security vulnerability if email contained any text created by the user.
 - Added a template to display the email to prevent the vulnerability
 - Tox testing and Travis CI updated for new versions of Django and Python
-- TravisCI.org does not support Python 3.7 at this time.
 
 0.2.0 (2014-08-03)
 ------------------

@@ -1,9 +1,12 @@
 language: python
 
+dist: xenial
+
 python:
-  - 3.4
-  - 3.5
-  - 3.6
+  - "3.4"
+  - "3.5"
+  - "3.6"
+  - "3.7"
 
 env:
   - DJANGO=Django<2
@@ -20,12 +23,10 @@ matrix:
    - python: 3.4
      env: DJANGO=https://github.com/django/django/tarball/master
    - python: 3.4
-     env: DJANGO<2
-   - python: 3.4
-     env: DJANGO<3
+     env: DJANGO=Django<3
 
    - python: 3.5
-     env: DJANGO<3
+     env: DJANGO=Django<3
    - python: 3.5
      env: DJANGO=https://github.com/django/django/tarball/master
 
