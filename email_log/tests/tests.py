@@ -1,14 +1,9 @@
-from __future__ import unicode_literals
-try:
-    from unittest import skipUnless
-except ImportError:  # Python 2.6
-    from django.utils.unittest import skipUnless
+from unittest import skipUnless
 
 from django import VERSION
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 from django.test.utils import override_settings
-from django.utils.six import text_type
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.core import mail
@@ -29,7 +24,7 @@ class EmailModelTests(TestCase):
             body="Message body",
             ok=True,
         )
-        self.assertEqual(text_type(email), "to@example.com: Subject line")
+        self.assertEqual(str(email), "to@example.com: Subject line")
 
 
 class SettingsTests(TestCase):
@@ -111,14 +106,14 @@ class AdminTests(TestCase):
         self.assertEqual(page.status_code, 403)
 
     def test_body_is_formatted(self):
-        initial = b"This\nis\na\ntest"
+        initial = "This\nis\na\ntest"
         email = Email.objects.create(body=initial)
-        page = self.client.get('/admin/email_log/email/%s/' % email.pk)
+        page = self.client.get('/admin/email_log/email/%s/' % email.pk, follow=True)
         self.assertNotIn(b'<div class="form-row field-body">', page.content)
-        self.assertNotIn(initial, page.content)
+        self.assertNotIn(initial.encode('utf-8'), page.content)
         self.assertIn(b'<div class="form-row field-body_formatted">',
                       page.content)
-        self.assertIn(b'<p>This<br />is<br />a<br />test</p>', page.content)
+        self.assertContains(page, 'This<br>is<br>a<br>test', html=True)
         self.assertEqual(page.status_code, 200)
 
     def test_delete_page(self):
