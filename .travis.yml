@@ -14,7 +14,7 @@ env:
   - DJANGO=Django==3.0
 
 install:
-  - pip install --use-mirrors coverage coveralls $DJANGO
+  - pip install coverage coveralls $DJANGO
 
 script: coverage run -a --branch setup.py test
 
