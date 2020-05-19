@@ -10,11 +10,11 @@ django-email-log
    :target: https://coveralls.io/r/treyhunner/django-email-log
    :alt: Coverage Status
 
-.. image:: https://pypip.in/v/django-email-log/badge.png
+.. image:: https://img.shields.io/pypi/v/django-email-log.svg
    :target: https://crate.io/packages/django-email-log
    :alt: Latest Version
 
-.. image:: https://pypip.in/d/django-email-log/badge.png
+.. image:: https://img.shields.io/pypi/dm/django-email-log.svg
    :target: https://crate.io/packages/django-email-log
    :alt: Download Count
 
