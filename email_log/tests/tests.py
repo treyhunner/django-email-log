@@ -1,7 +1,3 @@
-from unittest import skipUnless
-
-from django import VERSION
-from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.contrib.auth.models import User
@@ -108,7 +104,10 @@ class AdminTests(TestCase):
     def test_body_is_formatted(self):
         initial = "This\nis\na\ntest"
         email = Email.objects.create(body=initial)
-        page = self.client.get('/admin/email_log/email/%s/' % email.pk, follow=True)
+        page = self.client.get(
+            '/admin/email_log/email/{}/'.format(email.pk),
+            follow=True,
+        )
         self.assertNotIn(b'<div class="form-row field-body">', page.content)
         self.assertNotIn(initial.encode('utf-8'), page.content)
         self.assertIn(b'<div class="form-row field-body_formatted">',
@@ -124,18 +123,4 @@ class AdminTests(TestCase):
 
     def test_app_name(self):
         page = self.client.get('/admin/')
-        if VERSION < (1, 7, 0):
-            self.assertContains(page, "Email_Log")
-        else:
-            self.assertContains(page, "Email log")
-
-
-class SouthSupportTests(TestCase):
-
-    @skipUnless(VERSION < (1, 7, 0), "test only applies to 1.6 and below")
-    def test_import_migrations_module(self):
-        try:
-            from email_log.migrations import __doc__  # noqa
-        except ImproperlyConfigured as e:
-            exception = e
-        self.assertIn("SOUTH_MIGRATION_MODULES", exception.args[0])
+        self.assertContains(page, "Email log")
