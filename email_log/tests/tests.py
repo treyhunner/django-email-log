@@ -108,10 +108,17 @@ class AdminTests(TestCase):
             '/admin/email_log/email/{}/'.format(email.pk),
             follow=True,
         )
-        self.assertNotIn(b'<div class="form-row field-body">', page.content)
-        self.assertNotIn(initial.encode('utf-8'), page.content)
-        self.assertIn(b'<div class="form-row field-body_formatted">',
-                      page.content)
+        self.assertNotContains(
+            page,
+            '<div class="form-row field-body">',
+            html=True,
+        )
+        self.assertNotContains(page, initial, html=True)
+        self.assertContains(
+            page,
+            '<div class="form-row field-body_formatted">',
+            html=False,  # html=False needed for partial HTML match
+        )
         self.assertContains(page, 'This<br>is<br>a<br>test', html=True)
         self.assertEqual(page.status_code, 200)
 
