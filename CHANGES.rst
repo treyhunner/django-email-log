@@ -1,6 +1,15 @@
 CHANGES
 =======
 
+1.0.0 (2020-05-19)
+------------------
+
+- Added Django 2.x support and Django 3.x support
+- Added tests for newer versions of Python 3
+- Dropped Django support for 1.10 and below
+- Dropped Python 2 support
+- Thanks to Mark Jones and Oleg Belousov for attempted PRs
+
 0.2.0 (2014-08-03)
 ------------------
 
