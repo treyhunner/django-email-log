@@ -2,6 +2,7 @@
 dist
 *.egg-info
 *.egg
+*.eggs
 .coverage
 .tox
 htmlcov
