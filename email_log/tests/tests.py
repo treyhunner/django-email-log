@@ -1,14 +1,5 @@
-from __future__ import unicode_literals
-try:
-    from unittest import skipUnless
-except ImportError:  # Python 2.6
-    from django.utils.unittest import skipUnless
-
-from django import VERSION
-from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 from django.test.utils import override_settings
-from django.utils.six import text_type
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.core import mail
@@ -29,7 +20,7 @@ class EmailModelTests(TestCase):
             body="Message body",
             ok=True,
         )
-        self.assertEqual(text_type(email), "to@example.com: Subject line")
+        self.assertEqual(str(email), "to@example.com: Subject line")
 
 
 class SettingsTests(TestCase):
@@ -111,14 +102,24 @@ class AdminTests(TestCase):
         self.assertEqual(page.status_code, 403)
 
     def test_body_is_formatted(self):
-        initial = b"This\nis\na\ntest"
+        initial = "This\nis\na\ntest"
         email = Email.objects.create(body=initial)
-        page = self.client.get('/admin/email_log/email/%s/' % email.pk)
-        self.assertNotIn(b'<div class="form-row field-body">', page.content)
-        self.assertNotIn(initial, page.content)
-        self.assertIn(b'<div class="form-row field-body_formatted">',
-                      page.content)
-        self.assertIn(b'<p>This<br />is<br />a<br />test</p>', page.content)
+        page = self.client.get(
+            '/admin/email_log/email/{}/'.format(email.pk),
+            follow=True,
+        )
+        self.assertNotContains(
+            page,
+            '<div class="form-row field-body">',
+            html=True,
+        )
+        self.assertNotContains(page, initial, html=True)
+        self.assertContains(
+            page,
+            '<div class="form-row field-body_formatted">',
+            html=False,  # html=False needed for partial HTML match
+        )
+        self.assertContains(page, 'This<br>is<br>a<br>test', html=True)
         self.assertEqual(page.status_code, 200)
 
     def test_delete_page(self):
@@ -129,18 +130,4 @@ class AdminTests(TestCase):
 
     def test_app_name(self):
         page = self.client.get('/admin/')
-        if VERSION < (1, 7, 0):
-            self.assertContains(page, "Email_Log")
-        else:
-            self.assertContains(page, "Email log")
-
-
-class SouthSupportTests(TestCase):
-
-    @skipUnless(VERSION < (1, 7, 0), "test only applies to 1.6 and below")
-    def test_import_migrations_module(self):
-        try:
-            from email_log.migrations import __doc__  # noqa
-        except ImproperlyConfigured as e:
-            exception = e
-        self.assertIn("SOUTH_MIGRATION_MODULES", exception.args[0])
+        self.assertContains(page, "Email log")

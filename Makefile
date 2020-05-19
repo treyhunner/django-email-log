@@ -36,7 +36,7 @@ dist: clean
 test-release: dist
 	pip install -U twine
 	gpg --detach-sign -a dist/*
-	twine upload -r pypitest dist/*
+	twine upload --repository testpypi dist/*
 
 release: dist
 	pip install -U twine

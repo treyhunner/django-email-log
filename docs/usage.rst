@@ -32,17 +32,6 @@ Then set django-email-log as your email backend in your settings file:
     EMAIL_BACKEND = 'email_log.backends.EmailBackend'
 
 
-Using with Django South
------------------------
-
-The ``migrations`` sub-package contains migrations for Django 1.7.  Django South migrations are stored in the ``south_migrations`` sub-package.
-
-There are two ways to use django-email-log with South.  Either:
-
-1. Install South 1.0
-2. Customize South to use the ``email_log.south_migrations`` migrations package
-
-
 Using with other email backends
 -------------------------------
 
