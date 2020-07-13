@@ -22,7 +22,7 @@ django-email-log
    :target: https://requires.io/github/treyhunner/django-email-log/requirements
    :alt: Requirements Status/
 
-Django email backend that logs all sent emails.
+Django email backend that logs all sent emails to a database using a Django model.
 
 This app works with Django 1.11 to 3.0.
 
