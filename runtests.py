@@ -4,14 +4,13 @@ from os.path import abspath, dirname
 
 import django
 from django.conf import settings
-import django
-
+from django.utils.crypto import get_random_string
 
 sys.path.insert(0, abspath(dirname(__file__)))
 
-
 if not settings.configured:
     settings.configure(
+        SECRET_KEY=get_random_string(),
         INSTALLED_APPS=(
             'django.contrib.contenttypes',
             'django.contrib.sessions',
@@ -26,7 +25,7 @@ if not settings.configured:
                 'ENGINE': 'django.db.backends.sqlite3',
             }
         },
-        EMAIL_LOG_BACKEND = 'django.core.mail.backends.locmem.EmailBackend',
+        EMAIL_LOG_BACKEND='django.core.mail.backends.locmem.EmailBackend',
         MIDDLEWARE=[
             'django.contrib.sessions.middleware.SessionMiddleware',
             'django.middleware.common.CommonMiddleware',
