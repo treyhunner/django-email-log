@@ -14,7 +14,7 @@ django-email-log
    :target: https://crate.io/packages/django-email-log
    :alt: Latest Version
 
-Django email backend that logs all sent emails.
+Django email backend that logs all sent emails to a database using a Django model.
 
 This app works with Django 2.2 to 4.0
 
