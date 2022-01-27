@@ -2,8 +2,8 @@
 django-email-log
 ================
 
-.. image:: https://travis-ci.org/treyhunner/django-email-log.png?branch=master
-   :target: https://travis-ci.org/treyhunner/django-email-log
+.. image:: https://app.travis-ci.com/treyhunner/django-email-log.svg?branch=master
+   :target: https://app.travis-ci.com/treyhunner/django-email-log
    :alt: Test Status
 
 .. image:: https://coveralls.io/repos/treyhunner/django-email-log/badge.png?branch=master
@@ -14,19 +14,11 @@ django-email-log
    :target: https://crate.io/packages/django-email-log
    :alt: Latest Version
 
-.. image:: https://img.shields.io/pypi/dm/django-email-log.svg
-   :target: https://crate.io/packages/django-email-log
-   :alt: Download Count
-
-.. image:: https://requires.io/github/treyhunner/django-email-log/requirements.png?branch=master
-   :target: https://requires.io/github/treyhunner/django-email-log/requirements
-   :alt: Requirements Status/
-
 Django email backend that logs all sent emails.
 
-This app works with Django 1.11 to 3.0.
+This app works with Django 2.2 to 4.0
 
-This app requires Python 3.5+.
+This app requires Python 3.6+.
 
 Getting Help
 ------------
