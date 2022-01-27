@@ -24,7 +24,7 @@ django-email-log
 
 Django email backend that logs all sent emails.
 
-This app works with Django 1.11 to 3.0.
+This app works with Django 2.2 to 3.2.
 
 This app requires Python 3.5+.
 

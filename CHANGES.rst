@@ -1,6 +1,15 @@
 CHANGES
 =======
 
+TBD
+------------------
+
+- Added Django 3.2 support
+- Dropped Django support for 2.1 and below
+- Dropped Python 3.5 support
+- Thanks to Alexey Kotenko for PRs
+
+
 1.0.0 (2020-05-19)
 ------------------
 
