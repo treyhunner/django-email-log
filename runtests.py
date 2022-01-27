@@ -4,13 +4,13 @@ from os.path import abspath, dirname
 
 import django
 from django.conf import settings
-from django.utils.crypto import get_random_string
+from django.core.management.utils import get_random_secret_key
 
 sys.path.insert(0, abspath(dirname(__file__)))
 
 if not settings.configured:
     settings.configure(
-        SECRET_KEY=get_random_string(),
+        SECRET_KEY=get_random_secret_key(),
         INSTALLED_APPS=(
             'django.contrib.contenttypes',
             'django.contrib.sessions',
