@@ -4,7 +4,7 @@ CHANGES
 TBD
 ------------------
 
-- Added Django 3.2 support
+- Added Django 3.2 and 4.0 support
 - Dropped Django support for 2.1 and below
 - Dropped Python 3.5 support
 - Thanks to Alexey Kotenko for PRs
