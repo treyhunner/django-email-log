@@ -12,6 +12,7 @@ setup(
         open('README.rst').read(),
         open('CHANGES.rst').read(),
     )),
+    long_description_content_type="text/x-rst",
     url='https://github.com/treyhunner/django-email-log',
     license='LICENSE',
     packages=find_packages(),
