@@ -136,6 +136,6 @@ class AdminTests(TestCase):
 
 
 class ChecksTest(TestCase):
-    def test_not_raising_warning_W042_check(self):
+    def test_not_raising_warning_check(self):
         warnings = checks.run_checks(app_configs=apps.get_app_configs())
         self.assertEqual(len(warnings), 0)
