@@ -1,6 +1,15 @@
 CHANGES
 =======
 
+1.1.0 (2022-01-27)
+------------------
+
+- Added Django 3.2 and 4.0 support
+- Dropped Django support for 2.1 and below
+- Dropped Python 3.5 support
+- Thanks to Alexey Kotenko and Craig Anderson for PRs
+
+
 1.0.0 (2020-05-19)
 ------------------
 

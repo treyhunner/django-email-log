@@ -27,18 +27,14 @@ documentation:
 	sphinx-build -b html -d docs/_build/doctrees docs docs/_build/html
 
 dist: clean
-	pip install -U wheel
-	python setup.py sdist
-	python setup.py bdist_wheel
-	for file in dist/* ; do gpg --detach-sign -a "$$file" ; done
-	ls -l dist
+	pip install -U wheel twine
+	python setup.py sdist bdist_wheel
+	twine check dist/*
 
 test-release: dist
 	pip install -U twine
-	gpg --detach-sign -a dist/*
-	twine upload --repository testpypi dist/*
+	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
 release: dist
 	pip install -U twine
-	gpg --detach-sign -a dist/*
 	twine upload dist/*
