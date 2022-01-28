@@ -1,3 +1,5 @@
+from django.apps import apps
+from django.core import checks
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.contrib.auth.models import User
@@ -131,3 +133,10 @@ class AdminTests(TestCase):
     def test_app_name(self):
         page = self.client.get('/admin/')
         self.assertContains(page, "Email log")
+
+
+class ChecksTest(TestCase):
+    def test_not_raising_warning_W042_check(self):
+        warnings = checks.run_checks(app_configs=apps.get_app_configs())
+        warning_ids = [warning.id for warning in warnings]
+        self.assertNotIn('models.W042', warning_ids)
