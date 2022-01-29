@@ -12,8 +12,10 @@ from unittest.mock import patch
 
 FAILING_BACKEND = 'email_log.tests.backends.FailingEmailBackend'
 
+
 class MockEmail:
     ok = False
+
     def save(self):
         raise Exception('Failed to save email to database')
 
@@ -105,7 +107,10 @@ class EmailBackendTests(TestCase):
                 sent = self.send_mail(fail_silently=True, **self.plain_args)
                 self.assertEqual(sent, 1)
                 self.assertEqual(len(captured.records), 1)
-                self.assertEqual(captured.records[0].getMessage(), "Failed to save email to database (create)")
+                self.assertEqual(
+                    captured.records[0].getMessage(),
+                    "Failed to save email to database (create)"
+                )
 
     def test_send_db_problem_update(self):
 
@@ -117,7 +122,10 @@ class EmailBackendTests(TestCase):
                 sent = self.send_mail(fail_silently=True, **self.plain_args)
                 self.assertEqual(sent, 1)
                 self.assertEqual(len(captured.records), 1)
-                self.assertEqual(captured.records[0].getMessage(), "Failed to save email to database (update)")
+                self.assertEqual(
+                    captured.records[0].getMessage(),
+                    "Failed to save email to database (update)"
+                )
 
 
 class AdminTests(TestCase):
