@@ -2,17 +2,25 @@
 django-email-log
 ================
 
-.. image:: https://app.travis-ci.com/treyhunner/django-email-log.svg?branch=master
-   :target: https://app.travis-ci.com/treyhunner/django-email-log
-   :alt: Test Status
+.. image:: https://img.shields.io/pypi/v/django-email-log.svg
+   :target: https://pypi.org/project/django-email-log/
+   :alt: PyPI
+.. image:: https://img.shields.io/pypi/pyversions/django-email-log
+   :target: https://pypi.org/project/django-email-log
+   :alt: Python Version
+.. image:: https://img.shields.io/pypi/djversions/django-email-log
+   :target: https://pypi.org/project/django-email-log
+   :alt: Django Version
+.. image:: https://img.shields.io/readthedocs/django-email-log/latest.svg?label=Read%20the%20Docs
+   :target: https://django-email-log.readthedocs.io/
+   :alt: Read the documentation at https://django-email-log.readthedocs.io/
+.. image:: https://github.com/treyhunner/django-email-log/workflows/django-email-log/badge.svg
+   :target: https://github.com/treyhunner/django-email-log/actions?workflow=django-email-log
+   :alt: Tests
 
 .. image:: https://coveralls.io/repos/treyhunner/django-email-log/badge.png?branch=master
    :target: https://coveralls.io/r/treyhunner/django-email-log
    :alt: Coverage Status
-
-.. image:: https://img.shields.io/pypi/v/django-email-log.svg
-   :target: https://crate.io/packages/django-email-log
-   :alt: Latest Version
 
 Django email backend that logs all sent emails to a database using a Django model.
 
