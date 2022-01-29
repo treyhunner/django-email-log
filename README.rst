@@ -17,10 +17,9 @@ django-email-log
 .. image:: https://github.com/treyhunner/django-email-log/workflows/django-email-log/badge.svg
    :target: https://github.com/treyhunner/django-email-log/actions?workflow=django-email-log
    :alt: Tests
-
-.. image:: https://coveralls.io/repos/treyhunner/django-email-log/badge.png?branch=master
-   :target: https://coveralls.io/r/treyhunner/django-email-log
-   :alt: Coverage Status
+.. image:: https://codecov.io/gh/treyhunner/django-email-log/branch/main/graph/badge.svg
+   :target: https://codecov.io/gh/treyhunner/django-email-log
+   :alt: Codecov
 
 Django email backend that logs all sent emails to a database using a Django model.
 

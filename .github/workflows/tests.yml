@@ -20,6 +20,10 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install tox tox-gh-actions
+        python -m pip install tox tox-gh-actions coverage
     - name: Test with tox
-      run: tox
+      run: |
+        tox
+        coverage xml
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v2
