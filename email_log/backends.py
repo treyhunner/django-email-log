@@ -26,7 +26,7 @@ class EmailBackend(BaseEmailBackend):
                     body=message.body,
                 )
             except Exception:
-                logging.error('Failed to save email to database', exc_info=True)
+                logging.error('Failed to save email to database (create)', exc_info=True)
             message.connection = self.connection
             num_sent += message.send()
             if num_sent > 0 and email:
@@ -34,5 +34,5 @@ class EmailBackend(BaseEmailBackend):
                 try:
                     email.save()
                 except Exception:
-                    logging.error('Failed to save email to database', exc_info=True)
+                    logging.error('Failed to save email to database (update)', exc_info=True)
         return num_sent

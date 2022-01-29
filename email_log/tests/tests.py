@@ -12,6 +12,11 @@ from unittest.mock import patch
 
 FAILING_BACKEND = 'email_log.tests.backends.FailingEmailBackend'
 
+class MockEmail:
+    ok = False
+    def save(self):
+        raise Exception('Failed to save email to database')
+
 
 class EmailModelTests(TestCase):
 
@@ -90,17 +95,29 @@ class EmailBackendTests(TestCase):
         email = Email.objects.get()
         self.assertFalse(email.ok)
         self.assertEmailCorrect(email, **self.plain_args)
-    
-    def test_send_db_problem(self):
+
+    def test_send_db_problem_create(self):
         with patch('email_log.models.Email.objects') as mock_objects:
             assert Email.objects == mock_objects
             mock_objects.create.side_effect = Exception("DB problem")
-        
+
             with self.assertLogs() as captured:
                 sent = self.send_mail(fail_silently=True, **self.plain_args)
                 self.assertEqual(sent, 1)
                 self.assertEqual(len(captured.records), 1)
-                self.assertEqual(captured.records[0].getMessage(), "Failed to save email to database")
+                self.assertEqual(captured.records[0].getMessage(), "Failed to save email to database (create)")
+
+    def test_send_db_problem_update(self):
+
+        with patch('email_log.models.Email.objects') as mock_objects:
+            assert Email.objects == mock_objects
+            mock_objects.create = lambda *args, **kwargs: MockEmail()
+
+            with self.assertLogs() as captured:
+                sent = self.send_mail(fail_silently=True, **self.plain_args)
+                self.assertEqual(sent, 1)
+                self.assertEqual(len(captured.records), 1)
+                self.assertEqual(captured.records[0].getMessage(), "Failed to save email to database (update)")
 
 
 class AdminTests(TestCase):
