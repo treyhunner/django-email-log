@@ -11,8 +11,7 @@ class Email(models.Model):
     subject = models.TextField(_("subject"))
     body = models.TextField(_("body"))
     ok = models.BooleanField(_("ok"), default=False, db_index=True)
-    date_sent = models.DateTimeField(_("date sent"), auto_now_add=True,
-                                     db_index=True)
+    date_sent = models.DateTimeField(_("date sent"), auto_now_add=True, db_index=True)
 
     def __str__(self):
         return "{s.recipients}: {s.subject}".format(s=self)
@@ -20,4 +19,4 @@ class Email(models.Model):
     class Meta:
         verbose_name = _("email")
         verbose_name_plural = _("emails")
-        ordering = ('-date_sent',)
+        ordering = ("-date_sent",)
