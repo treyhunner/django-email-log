@@ -16,7 +16,7 @@ class EmailBackend(BaseEmailBackend):
     def send_messages(self, email_messages):
         num_sent = 0
         for message in email_messages:
-            recipients = '; '.join(message.to)
+            recipients = "; ".join(message.to)
             email = None
             try:
                 email = Email.objects.create(
@@ -27,8 +27,7 @@ class EmailBackend(BaseEmailBackend):
                 )
             except Exception:
                 logging.error(
-                    'Failed to save email to database (create)',
-                    exc_info=True
+                    "Failed to save email to database (create)", exc_info=True
                 )
             message.connection = self.connection
             num_sent += message.send()
@@ -38,7 +37,6 @@ class EmailBackend(BaseEmailBackend):
                     email.save()
                 except Exception:
                     logging.error(
-                        'Failed to save email to database (update)',
-                        exc_info=True
+                        "Failed to save email to database (update)", exc_info=True
                     )
         return num_sent
