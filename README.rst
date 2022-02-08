@@ -14,8 +14,8 @@ django-email-log
 .. image:: https://img.shields.io/readthedocs/django-email-log/latest.svg?label=Read%20the%20Docs
    :target: https://django-email-log.readthedocs.io/
    :alt: Read the documentation at https://django-email-log.readthedocs.io/
-.. image:: https://github.com/treyhunner/django-email-log/workflows/django-email-log/badge.svg
-   :target: https://github.com/treyhunner/django-email-log/actions?workflow=django-email-log
+.. image:: https://github.com/treyhunner/django-email-log/workflows/Tests/badge.svg
+   :target: https://github.com/treyhunner/django-email-log/actions?workflow=Tests
    :alt: Tests
 .. image:: https://codecov.io/gh/treyhunner/django-email-log/branch/main/graph/badge.svg
    :target: https://codecov.io/gh/treyhunner/django-email-log
