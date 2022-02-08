@@ -1,4 +1,4 @@
-name: django-email-log
+name: Tests
 
 on:
   - push

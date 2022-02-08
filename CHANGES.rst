@@ -1,6 +1,15 @@
 CHANGES
 =======
 
+1.2.0 (2022-02-08)
+------------------
+
+- Set default_auto_field in apps.py (#23)
+- Send email even when we can't write the database (#14)
+- Fix Django warnings
+- Improve CI/pre-commit/formatting (we're using Black now)
+
+
 1.1.0 (2022-01-27)
 ------------------
 
