@@ -1,6 +1,12 @@
 CHANGES
 =======
 
+Unreleased
+----------
+
+- Remove Python 3.6 support, add 3.11 support
+
+
 1.2.0 (2022-02-08)
 ------------------
 

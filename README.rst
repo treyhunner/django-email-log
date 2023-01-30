@@ -25,7 +25,7 @@ Django email backend that logs all sent emails to a database using a Django mode
 
 This app works with Django 2.2 to 4.0
 
-This app requires Python 3.6+.
+This app requires Python 3.7+.
 
 Getting Help
 ------------
