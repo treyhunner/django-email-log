@@ -9,3 +9,4 @@ htmlcov
 build
 docs/_build
 MANIFEST
+.vscode
