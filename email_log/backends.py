@@ -5,6 +5,7 @@ from .conf import settings
 from .models import Email
 
 
+# Test
 class EmailBackend(BaseEmailBackend):
 
     """Wrapper email backend that records all emails in a database model"""
