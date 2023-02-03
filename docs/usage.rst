@@ -31,20 +31,6 @@ Then set django-email-log as your email backend in your settings file:
 
     EMAIL_BACKEND = 'email_log.backends.EmailBackend'
 
-By default attachments will not be saved to the database.
-If you want all attachments to be saved to the database, just set this to true:
-
-.. code-block:: python
-
-    EMAIL_LOG_SAVE_ATTACHMENTS = True
-
-And using this setting you can configure path to your attachments:
-
-.. code-block:: python
-
-    EMAIL_LOG_ATTACHMENTS_PATH = "path/to/attachments"
-
-
 
 Using with other email backends
 -------------------------------

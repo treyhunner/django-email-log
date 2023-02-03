@@ -5,9 +5,6 @@ Unreleased
 ----------
 
 - Remove Python 3.6 support
-- Add saving of e-mail attachemnts to database
-- Add saving of html alternatives to database
-
 
 1.2.0 (2022-02-08)
 ------------------

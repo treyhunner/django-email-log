@@ -1,31 +1,6 @@
 from django.contrib import admin
 from django.template.defaultfilters import linebreaksbr
-from .models import Attachment, Email
-
-
-class AttachmentInline(admin.StackedInline):
-    model = Attachment
-    verbose_name = "Attachment"
-    verbose_name_plural = "Attachments"
-    can_delete = False
-    fieldsets = (
-        (
-            None,
-            {
-                "fields": (
-                    "file",
-                    "name",
-                    "mimetype",
-                )
-            },
-        ),
-    )
-    readonly_fields = (
-        "file",
-        "name",
-        "mimetype",
-    )
-    extra = 0
+from .models import Email
 
 
 class EmailAdmin(admin.ModelAdmin):
@@ -36,12 +11,8 @@ class EmailAdmin(admin.ModelAdmin):
         "recipients",
         "subject",
         "body_formatted",
-        "html_message",
         "date_sent",
         "ok",
-    ]
-    inlines = [
-        AttachmentInline,
     ]
     search_fields = ["subject", "body", "recipients"]
     exclude = ["body"]
