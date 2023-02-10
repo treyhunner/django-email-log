@@ -84,13 +84,17 @@ class EmailBackendTests(TestCase):
     @classmethod
     def setUpClass(cls):
         # Create test folder
-        os.mkdir(ATTACHMENTS_TEST_FOLDER)
+        if not os.path.exists(ATTACHMENTS_TEST_FOLDER):
+            os.mkdir(ATTACHMENTS_TEST_FOLDER)
         return super().setUpClass()
 
     @classmethod
     def tearDownClass(cls):
         # Remove test folder
-        shutil.rmtree(ATTACHMENTS_TEST_FOLDER)
+        try:
+            shutil.rmtree(ATTACHMENTS_TEST_FOLDER)
+        except PermissionError:
+            pass
         return super().tearDownClass()
 
     plain_args = {

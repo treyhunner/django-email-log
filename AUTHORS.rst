@@ -5,5 +5,5 @@ Authors and contributors to django-email-log (listed alphabetically):
 - Jannis
 - Keryn Knight <kerynknight.com>
 - Rodrigo Deodoro <http://deodoro.org>
-- Serafeim Papastefanos <https://spapas.github.io>
+- Serafeim Papastefanos <https://www.spapas.net>
 - Trey Hunner <http://treyhunner.com>

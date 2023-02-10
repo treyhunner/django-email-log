@@ -36,6 +36,7 @@ setup(
         "Framework :: Django :: 3.0",
         "Framework :: Django :: 3.2",
         "Framework :: Django :: 4.0",
+        "Framework :: Django :: 4.1",
     ],
     tests_require=["Django >= 2.2.0"],
     include_package_data=True,
