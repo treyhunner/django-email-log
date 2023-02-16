@@ -2,7 +2,7 @@ CHANGES
 =======
 
 1.3.0 (2023-02-10)
-----------
+------------------
 
 - Added Django 4.1 support
 - Remove Python 3.6 support
