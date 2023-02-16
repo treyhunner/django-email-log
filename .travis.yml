@@ -19,6 +19,6 @@ script: coverage run -a --branch setup.py test
 matrix:
   exclude:
     - python: 3.7
-      env: DJANGO="Django>=4.0,<4.1"
+      env: DJANGO="Django>=4.0,<4.2"
 
 after_success: coveralls
