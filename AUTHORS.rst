@@ -1,7 +1,7 @@
 Authors and contributors to django-email-log (listed alphabetically):
 
-- Ivan Studinsky
 - Alexey Kotenko
+- Ivan Studinsky
 - Jannis
 - Keryn Knight <kerynknight.com>
 - Rodrigo Deodoro <http://deodoro.org>

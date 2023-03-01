@@ -81,9 +81,7 @@ class EmailBackend(BaseEmailBackend):
 
     def _create_attachments(self, email: Email, files: dict):
         """Create attachments and save it to database."""
-        attachment_path = ""
-        if hasattr(settings, "EMAIL_LOG_ATTACHMENTS_PATH"):
-            attachment_path = f"{settings.EMAIL_LOG_ATTACHMENTS_PATH}/"
+        attachment_path = self._get_attachments_path()
 
         for filename, filedata in files.items():
             content = filedata.get("file", None)
@@ -99,3 +97,24 @@ class EmailBackend(BaseEmailBackend):
                 content=content,
                 save=True,
             )
+
+    def _get_attachments_path(self) -> str:
+        """Return attachments path from settings.
+
+        Check if path defined in settings is callable then return result of
+        function. Otherwise return path itself.
+
+        """
+        if not hasattr(settings, "EMAIL_LOG_ATTACHMENTS_PATH"):
+            return ""
+
+        path_from_settings = settings.EMAIL_LOG_ATTACHMENTS_PATH
+
+        if callable(path_from_settings):
+            path = path_from_settings()
+        else:
+            path = path_from_settings
+
+        if not path.endswith("/"):
+            return f"{path}/"
+        return path

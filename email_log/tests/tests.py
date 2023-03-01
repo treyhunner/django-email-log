@@ -85,6 +85,11 @@ class EmailBackendTests(TestCase):
     def setUpClass(cls):
         # Create test folder
         os.mkdir(ATTACHMENTS_TEST_FOLDER)
+        cls.attachment_data = {
+            "filename": "test.txt",
+            "content": b"test",
+            "mimetype": "text/plain",
+        }
         return super().setUpClass()
 
     @classmethod
@@ -159,17 +164,22 @@ class EmailBackendTests(TestCase):
             "content": b"test",
             "mimetype": "text/plain",
         }
-        self.assertAttachmentOK(attachment_data, expected_data=attachment_data)
+        self.assertAttachmentOK(attachment_data)
 
     @override_settings(EMAIL_LOG_ATTACHMENTS_PATH=ATTACHMENTS_TEST_FOLDER)
     @override_settings(EMAIL_LOG_SAVE_ATTACHMENTS=True)
     def test_send_messages_with_attachment_with_path_specified(self):
-        attachment_data = {
-            "filename": "test.txt",
-            "content": b"test",
-            "mimetype": "text/plain",
-        }
-        self.assertAttachmentOK(attachment_data, expected_data=attachment_data)
+        self.assertAttachmentOK(self.attachment_data)
+
+    @override_settings(EMAIL_LOG_ATTACHMENTS_PATH=f"{ATTACHMENTS_TEST_FOLDER}/")
+    @override_settings(EMAIL_LOG_SAVE_ATTACHMENTS=True)
+    def test_send_messages_with_attachments_path_specified_with_slash_on_end(self):
+        self.assertAttachmentOK(self.attachment_data)
+
+    @override_settings(EMAIL_LOG_ATTACHMENTS_PATH=lambda: ATTACHMENTS_TEST_FOLDER)
+    @override_settings(EMAIL_LOG_SAVE_ATTACHMENTS=True)
+    def test_send_messages_with_attachments_path_callable_specified(self):
+        self.assertAttachmentOK(self.attachment_data)
 
     @override_settings(EMAIL_LOG_SAVE_ATTACHMENTS=True)
     def test_send_messages_with_mime_base_attachment(self):
@@ -190,7 +200,7 @@ class EmailBackendTests(TestCase):
             "filename": f"{ATTACHMENTS_TEST_FOLDER}/test.txt",
             "content": b"Test message",
         }
-        self.assertAttachmentOK(attachment_data, expected_data)
+        self.assertAttachmentOK(attachment_data, expected_data=expected_data)
 
     @override_settings(EMAIL_LOG_SAVE_ATTACHMENTS=True)
     def test_send_messages_with_attachment_without_type(self):
@@ -198,7 +208,7 @@ class EmailBackendTests(TestCase):
             "filename": f"{ATTACHMENTS_TEST_FOLDER}/test",
             "content": b"test",
         }
-        self.assertAttachmentOK(attachment_data, expected_data=attachment_data)
+        self.assertAttachmentOK(attachment_data)
 
     def test_send_html_message(self):
         html_message = "<strong>Test html</strong><br>"
@@ -295,7 +305,10 @@ class EmailBackendTests(TestCase):
             self.assertEqual(message.subject, self.plain_args["subject"])
             self.assertEqual(message.body, self.plain_args["body"])
 
-    def assertAttachmentOK(self, attachment_data: dict, expected_data):
+    def assertAttachmentOK(self, attachment_data: dict, expected_data = None):
+        if expected_data is None:
+            expected_data = attachment_data
+
         number_of_attachments = self.get_number_of_test_files()
         sent = self.send_mail_with_attachment(attachment_data)
 

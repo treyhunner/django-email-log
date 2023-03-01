@@ -1,6 +1,12 @@
 CHANGES
 =======
 
+Unreleased
+------------------
+
+- Added ability to assign callable to `EMAIL_LOG_ATTACHMENTS_PATH`
+
+
 1.3.0 (2023-02-10)
 ------------------
 

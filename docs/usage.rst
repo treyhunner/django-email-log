@@ -44,6 +44,16 @@ And using this setting you can configure path to your attachments:
 
     EMAIL_LOG_ATTACHMENTS_PATH = "path/to/attachments"
 
+Or you can even provide callable object
+
+.. code-block:: python
+
+    def get_path():
+        today = datetime.today().strftime('%m-%d-%Y')
+        return f"path/to/attachments/{today}"
+
+    EMAIL_LOG_ATTACHMENTS_PATH = get_path
+
 
 
 Using with other email backends
