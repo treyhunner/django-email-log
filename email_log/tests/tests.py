@@ -176,7 +176,11 @@ class EmailBackendTests(TestCase):
     def test_send_messages_with_attachments_path_specified_with_slash_on_end(self):
         self.assertAttachmentOK(self.attachment_data)
 
-    @override_settings(EMAIL_LOG_ATTACHMENTS_PATH=lambda: ATTACHMENTS_TEST_FOLDER)
+    @override_settings(
+        EMAIL_LOG_ATTACHMENTS_PATH=(
+            lambda email, name: f"{ATTACHMENTS_TEST_FOLDER}/{name}"
+        )
+    )
     @override_settings(EMAIL_LOG_SAVE_ATTACHMENTS=True)
     def test_send_messages_with_attachments_path_callable_specified(self):
         self.assertAttachmentOK(self.attachment_data)
@@ -305,7 +309,7 @@ class EmailBackendTests(TestCase):
             self.assertEqual(message.subject, self.plain_args["subject"])
             self.assertEqual(message.body, self.plain_args["body"])
 
-    def assertAttachmentOK(self, attachment_data: dict, expected_data = None):
+    def assertAttachmentOK(self, attachment_data: dict, expected_data=None):
         if expected_data is None:
             expected_data = attachment_data
 

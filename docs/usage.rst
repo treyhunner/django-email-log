@@ -48,9 +48,9 @@ Or you can even provide callable object
 
 .. code-block:: python
 
-    def get_path():
-        today = datetime.today().strftime('%m-%d-%Y')
-        return f"path/to/attachments/{today}"
+    def get_path(email, filename):
+        date_sent = email.date_sent.strftime('%m-%d-%Y')
+        return f"path/to/attachments/{date_sent}/{filename}"
 
     EMAIL_LOG_ATTACHMENTS_PATH = get_path
 
