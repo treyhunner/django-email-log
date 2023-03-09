@@ -36,8 +36,7 @@ class EmailBackend(BaseEmailBackend):
                     "Failed to save email to database (create)", exc_info=True
                 )
 
-            has_setting = hasattr(settings, "EMAIL_LOG_SAVE_ATTACHMENTS")
-            if has_setting and settings.EMAIL_LOG_SAVE_ATTACHMENTS is True:
+            if settings.EMAIL_LOG_SAVE_ATTACHMENTS:
                 self._log_attachments(email, message)
 
             message.connection = self.connection
@@ -81,21 +80,18 @@ class EmailBackend(BaseEmailBackend):
 
     def _create_attachments(self, email: Email, files: dict):
         """Create attachments and save it to database."""
-        attachment_path = ""
-        if hasattr(settings, "EMAIL_LOG_ATTACHMENTS_PATH"):
-            attachment_path = f"{settings.EMAIL_LOG_ATTACHMENTS_PATH}/"
-
         for filename, filedata in files.items():
             content = filedata.get("file", None)
             mimetype = filedata.get("mimetype", None)
-
             attachment = Attachment()
-            if mimetype:
-                attachment.mimetype = mimetype
+
             attachment.name = filename
             attachment.email = email
+            if mimetype:
+                attachment.mimetype = mimetype
+
             attachment.file.save(
-                f"{attachment_path}{filename}",
+                filename,
                 content=content,
                 save=True,
             )

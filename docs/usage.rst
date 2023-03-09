@@ -44,6 +44,16 @@ And using this setting you can configure path to your attachments:
 
     EMAIL_LOG_ATTACHMENTS_PATH = "path/to/attachments"
 
+Or you can even provide callable object just like for `FileField.upload_to`
+
+.. code-block:: python
+
+    def get_path(instance, filename):
+        date_sent = email.date_sent.strftime('%m-%d-%Y')
+        return f"path/to/attachments/{date_sent}/{filename}"
+
+    EMAIL_LOG_ATTACHMENTS_PATH = get_path
+
 
 
 Using with other email backends
