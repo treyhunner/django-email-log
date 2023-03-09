@@ -1,5 +1,9 @@
+import pathlib
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+from .conf import settings
 
 
 class Email(models.Model):
@@ -23,11 +27,27 @@ class Email(models.Model):
         ordering = ("-date_sent",)
 
 
+def get_attachment_path(instance, filename: str) -> str:
+    """Return attachments path from settings
+
+    If attachments path is callable then call it and return result. Otherwise
+    return path concatenated with the filename.
+
+    """
+    path = settings.EMAIL_LOG_ATTACHMENTS_PATH
+    if callable(path):
+        return path(instance, filename)
+    return str(pathlib.Path(str(path)) / filename)
+
+
 class Attachment(models.Model):
 
     """Model to store attachments of outgoing email"""
 
-    file = models.FileField(_("file"))
+    file = models.FileField(
+        _("file"),
+        upload_to=get_attachment_path,
+    )
     name = models.CharField(_("name"), max_length=255, help_text=_("filename"))
     email = models.ForeignKey(
         Email,

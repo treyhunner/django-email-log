@@ -36,8 +36,7 @@ class EmailBackend(BaseEmailBackend):
                     "Failed to save email to database (create)", exc_info=True
                 )
 
-            has_setting = hasattr(settings, "EMAIL_LOG_SAVE_ATTACHMENTS")
-            if has_setting and settings.EMAIL_LOG_SAVE_ATTACHMENTS is True:
+            if settings.EMAIL_LOG_SAVE_ATTACHMENTS:
                 self._log_attachments(email, message)
 
             message.connection = self.connection
@@ -82,37 +81,17 @@ class EmailBackend(BaseEmailBackend):
     def _create_attachments(self, email: Email, files: dict):
         """Create attachments and save it to database."""
         for filename, filedata in files.items():
-            attachment_path = self._get_attachments_path(email, filename)
             content = filedata.get("file", None)
             mimetype = filedata.get("mimetype", None)
-
             attachment = Attachment()
-            if mimetype:
-                attachment.mimetype = mimetype
+
             attachment.name = filename
             attachment.email = email
+            if mimetype:
+                attachment.mimetype = mimetype
+
             attachment.file.save(
-                f"{attachment_path}",
+                filename,
                 content=content,
                 save=True,
             )
-
-    def _get_attachments_path(self, email: Email, filename: str) -> str:
-        """Return attachments path from settings.
-
-        Check if path defined in settings is callable then return result of
-        function. Otherwise return path itself.
-
-        """
-        if not hasattr(settings, "EMAIL_LOG_ATTACHMENTS_PATH"):
-            return filename
-
-        path_from_settings = settings.EMAIL_LOG_ATTACHMENTS_PATH
-
-        if callable(path_from_settings):
-            return path_from_settings(email, filename)
-        else:
-            path = path_from_settings
-            if not path.endswith("/"):
-                return f"{path}/{filename}"
-            return f"{path}{filename}"

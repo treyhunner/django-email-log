@@ -166,14 +166,11 @@ class EmailBackendTests(TestCase):
         }
         self.assertAttachmentOK(attachment_data)
 
-    @override_settings(EMAIL_LOG_ATTACHMENTS_PATH=ATTACHMENTS_TEST_FOLDER)
-    @override_settings(EMAIL_LOG_SAVE_ATTACHMENTS=True)
+    @override_settings(
+        EMAIL_LOG_SAVE_ATTACHMENTS=True,
+        EMAIL_LOG_ATTACHMENTS_PATH=ATTACHMENTS_TEST_FOLDER,
+    )
     def test_send_messages_with_attachment_with_path_specified(self):
-        self.assertAttachmentOK(self.attachment_data)
-
-    @override_settings(EMAIL_LOG_ATTACHMENTS_PATH=f"{ATTACHMENTS_TEST_FOLDER}/")
-    @override_settings(EMAIL_LOG_SAVE_ATTACHMENTS=True)
-    def test_send_messages_with_attachments_path_specified_with_slash_on_end(self):
         self.assertAttachmentOK(self.attachment_data)
 
     @override_settings(
