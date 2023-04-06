@@ -1,10 +1,11 @@
 CHANGES
 =======
 
-Unreleased
+1.4.0 (2023-04-06)
 ------------------
 
 - Added ability to assign callable to `EMAIL_LOG_ATTACHMENTS_PATH`
+- Added Django 4.2 support
 
 
 1.3.0 (2023-02-10)
