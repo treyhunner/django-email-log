@@ -20,5 +20,6 @@ matrix:
   exclude:
     - python: 3.7
       env: DJANGO="Django>=4.0,<4.2"
+      env: DJANGO="Django>=4.1,<4.3"
 
 after_success: coveralls
