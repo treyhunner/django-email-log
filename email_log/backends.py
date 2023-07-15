@@ -59,7 +59,7 @@ class EmailBackend(BaseEmailBackend):
                 status = True
                 err_msg = ""
             except Exception as e:
-                logging.critical(f"Error mail log {e}")
+                logging.error(f"Error while sending mail: {e}")
                 status = False
                 err_msg = ERR_TEMPLATE.format(type(e).__name__, e.args)
 
