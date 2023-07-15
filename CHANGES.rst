@@ -1,5 +1,9 @@
 CHANGES
 =======
+1.5.0 (2023-07-15)
+-------------------
+- Added the possibiltity to filter by subject what log on db and not
+- Added the column err_msg in order to see from the admin the error messages
 
 1.4.0 (2023-04-06)
 ------------------
