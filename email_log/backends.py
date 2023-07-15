@@ -64,7 +64,7 @@ class EmailBackend(BaseEmailBackend):
                 err_msg = ERR_TEMPLATE.format(type(e).__name__, e.args)
 
             if email:
-                email.status = status
+                email.ok = status
                 email.err_msg = err_msg
                 try:
                     email.save()
