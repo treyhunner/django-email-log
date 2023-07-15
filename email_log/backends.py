@@ -8,6 +8,7 @@ import logging
 from .conf import settings
 from .models import Attachment, Email
 
+ERR_TEMPLATE = "An exception of type {0} occurred. Arguments:\n{1!r}"
 
 class EmailBackend(BaseEmailBackend):
 
@@ -16,40 +17,63 @@ class EmailBackend(BaseEmailBackend):
     def __init__(self, **kwargs):
         super(EmailBackend, self).__init__(**kwargs)
         self.connection = get_connection(settings.EMAIL_LOG_BACKEND, **kwargs)
+        self.LOGGED_SUBJECTS = settings.EMAIL_LOG_SUBJECTS
 
-    def send_messages(self, email_messages):
-        num_sent = 0
+    def send_messages(self, email_messages, log_on_db=False):
         for message in email_messages:
             recipients = "; ".join(message.to)
             email = None
             html_message = self._get_html_message(message)
-            try:
-                email = Email.objects.create(
-                    from_email=message.from_email,
-                    recipients=recipients,
-                    subject=message.subject,
-                    body=message.body,
-                    html_message=html_message,
-                )
-            except Exception:
-                logging.error(
-                    "Failed to save email to database (create)", exc_info=True
+            
+            # Log only if subject defined in the settings match
+            if not self.LOGGED_SUBJECTS:
+                # if not define log everything
+                log_on_db = True
+            else:
+                log_on_db = any(
+                    subject.lower() in message.subject.lower() for subject in self.LOGGED_SUBJECTS
                 )
 
-            if settings.EMAIL_LOG_SAVE_ATTACHMENTS:
-                self._log_attachments(email, message)
+            if log_on_db: 
+                logging.info("Message subject matched, Saving mail log")
+                try:
+                    email = Email.objects.create(
+                        from_email=message.from_email,
+                        recipients=recipients,
+                        subject=message.subject,
+                        body=message.body,
+                        html_message=html_message,
+                    )
+                except Exception:
+                    logging.error(
+                        "Failed to save email to database (create)", exc_info=True
+                    )
+
+                if settings.EMAIL_LOG_SAVE_ATTACHMENTS:
+                    self._log_attachments(email, message)
 
             message.connection = self.connection
-            num_sent += message.send()
-            if num_sent > 0 and email:
-                email.ok = True
+            
+            try:
+                message.send(fail_silently=False)
+                status = True
+                err_msg = ""
+            except Exception as e:
+                logging.critical(f"Error mail log {e}")
+                status = False
+                err_msg = ERR_TEMPLATE.format(type(e).__name__, e.args)
+
+            if email:
+                email.status = status
+                email.err_msg = err_msg
                 try:
                     email.save()
                 except Exception:
                     logging.error(
                         "Failed to save email to database (update)", exc_info=True
                     )
-        return num_sent
+
+        return status
 
     def _get_html_message(self, message: EmailMessage) -> str:
         """Retrieve html message from the email message."""

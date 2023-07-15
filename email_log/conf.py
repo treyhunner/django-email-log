@@ -9,6 +9,7 @@ class Settings:
         EMAIL_LOG_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
         EMAIL_LOG_SAVE_ATTACHMENTS = False
         EMAIL_LOG_ATTACHMENTS_PATH = ""
+        EMAIL_LOG_SUBJECTS = []
 
     def __init__(self):
         self.defaults = Settings.Default()
