@@ -39,6 +39,7 @@ class EmailAdmin(admin.ModelAdmin):
         "html_message",
         "date_sent",
         "ok",
+        "err_msg"
     ]
     inlines = [
         AttachmentInline,

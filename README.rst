@@ -22,7 +22,11 @@ django-email-log
    :alt: Codecov
 
 Django email backend that logs all sent emails to a database using a Django model.
-
+It is possibile to filter by subject what to log on or not also by setting this:
+```
+# LOG ONLY DEFINED SUBJECT, SUBJECT CAN BE PARTIAL TOO
+EMAIL_LOG_SUBJECTS = ["Subject 1", "Subject 2"]
+```
 This app works with Django 2.2 to 4.2
 
 This app requires Python 3.7+.

@@ -17,6 +17,7 @@ class Email(models.Model):
     ok = models.BooleanField(_("ok"), default=False, db_index=True)
     date_sent = models.DateTimeField(_("date sent"), auto_now_add=True, db_index=True)
     html_message = models.TextField(_("HTML message"), blank=True)
+    err_msg = models.TextField(_("Error message"), blank=True)
 
     def __str__(self):
         return "{s.recipients}: {s.subject}".format(s=self)
