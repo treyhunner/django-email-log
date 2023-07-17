@@ -19,7 +19,7 @@ class EmailBackend(BaseEmailBackend):
         self.connection = get_connection(settings.EMAIL_LOG_BACKEND, **kwargs)
         self.LOGGED_SUBJECTS = settings.EMAIL_LOG_SUBJECTS
 
-    def send_messages(self, email_messages, log_on_db=False):
+    def send_messages(self, email_messages):
         for message in email_messages:
             recipients = "; ".join(message.to)
             email = None
