@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.template.defaultfilters import linebreaksbr
+from django.utils.html import format_html
 from .models import Attachment, Email
 
 
@@ -40,7 +41,7 @@ class EmailAdmin(admin.ModelAdmin):
         "extra_headers",
         "subject",
         "body_formatted",
-        "html_message",
+        "html_message_preview",
         "date_sent",
         "ok",
     ]
@@ -55,13 +56,24 @@ class EmailAdmin(admin.ModelAdmin):
         "bcc_recipients",
         "extra_headers",
     ]
-    exclude = ["body"]
+    exclude = ["body", "html_message"]
 
     def has_delete_permission(self, *args, **kwargs):
         return False
 
     def has_add_permission(self, *args, **kwargs):
         return False
+
+    def html_message_preview(self, obj):
+        if obj.html_message:
+            return format_html(
+                '<iframe srcdoc="{}" width="800px" height="600px"></iframe>',
+                obj.html_message
+            )
+        else:
+            return "No HTML content"
+
+    html_message_preview.short_description = "HTML message"
 
     def body_formatted(self, obj):
         return linebreaksbr(obj.body)
