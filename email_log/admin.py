@@ -41,6 +41,7 @@ class EmailAdmin(admin.ModelAdmin):
         "extra_headers",
         "subject",
         "body_formatted",
+        "html_message",
         "html_message_preview",
         "date_sent",
         "ok",
@@ -57,6 +58,33 @@ class EmailAdmin(admin.ModelAdmin):
         "extra_headers",
     ]
     exclude = ["body", "html_message"]
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "from_email",
+                    "recipients",
+                    "cc_recipients",
+                    "bcc_recipients",
+                    "reply_to",
+                    "extra_headers",
+                    "subject",
+                    "body_formatted",
+                    "html_message_preview",
+                    "date_sent",
+                    "ok",
+                )
+            },
+        ),
+        (
+            "Plain HTML message",
+            {
+                "classes": ("collapse",),
+                "fields": ("html_message",),
+            }
+        ),
+    )
 
     def has_delete_permission(self, *args, **kwargs):
         return False
