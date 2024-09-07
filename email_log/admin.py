@@ -80,7 +80,7 @@ class EmailAdmin(admin.ModelAdmin):
     def html_message_preview(self, obj):
         if obj.html_message:
             return format_html(
-                '<iframe srcdoc="{}" width="800px" height="600px"></iframe>',
+                "<iframe style='border: 1px solid #e8e8e8' srcdoc='{}' width='800px' height='600px'></iframe>",
                 obj.html_message
             )
         else:
