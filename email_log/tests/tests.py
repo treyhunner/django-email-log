@@ -84,7 +84,7 @@ class EmailBackendTests(TestCase):
     @classmethod
     def setUpClass(cls):
         # Create test folder
-        os.mkdir(ATTACHMENTS_TEST_FOLDER)
+        os.makedirs(ATTACHMENTS_TEST_FOLDER, exist_ok=True)
         cls.attachment_data = {
             "filename": "test.txt",
             "content": b"test",
@@ -95,7 +95,11 @@ class EmailBackendTests(TestCase):
     @classmethod
     def tearDownClass(cls):
         # Remove test folder
-        shutil.rmtree(ATTACHMENTS_TEST_FOLDER)
+        try:
+            shutil.rmtree(ATTACHMENTS_TEST_FOLDER)
+        except PermissionError:
+            # For some reason the folder is used on Windows; let's ignore it.
+            pass
         return super().tearDownClass()
 
     plain_args = {
