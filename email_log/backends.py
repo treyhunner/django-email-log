@@ -21,12 +21,16 @@ class EmailBackend(BaseEmailBackend):
         num_sent = 0
         for message in email_messages:
             recipients = "; ".join(message.to)
+            cc_recipients = "; ".join(message.cc) if message.cc else ""
+            bcc_recipients = "; ".join(message.bcc) if message.bcc else ""
             email = None
             html_message = self._get_html_message(message)
             try:
                 email = Email.objects.create(
                     from_email=message.from_email,
                     recipients=recipients,
+                    cc_recipients=cc_recipients,
+                    bcc_recipients=bcc_recipients,
                     subject=message.subject,
                     body=message.body,
                     html_message=html_message,

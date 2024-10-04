@@ -12,6 +12,8 @@ class Email(models.Model):
 
     from_email = models.TextField(_("from email"))
     recipients = models.TextField(_("recipients"))
+    cc_recipients = models.TextField(_("cc recipients"), blank=True)
+    bcc_recipients = models.TextField(_("bcc recipients"), blank=True)
     subject = models.TextField(_("subject"))
     body = models.TextField(_("body"))
     ok = models.BooleanField(_("ok"), default=False, db_index=True)

@@ -6,6 +6,8 @@ CHANGES
 
 - Add Django 5.0 and 5.1 support
 - Remove support from all Django versions prior to 4.2 and corresponding python versions
+- Save cc and bcc fields in the database
+
 
 1.4.0 (2023-04-06)
 ------------------
