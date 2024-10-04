@@ -35,6 +35,8 @@ class EmailModelTests(TestCase):
         email = Email.objects.create(
             from_email="from@example.com",
             recipients="to@example.com",
+            cc_recipients="cc@example.com",
+            bcc_recipients="bcc@example.com",
             subject="Subject line",
             body="Message body",
             ok=True,
@@ -141,6 +143,27 @@ class EmailBackendTests(TestCase):
 
     def test_send_messages(self):
         sent = self.send_mail(fail_silently=False, **self.plain_args)
+        self.assertEmailOK(sent)
+
+    def test_send_message_cc_bcc(self):
+        args = {
+            **self.plain_args,
+            "to": self.plain_args["recipients"],
+            "cc": ["cc@example.com", "cc2@example.com"],
+            "bcc": ["bcc@example.com", "bcc2@example.com"],
+        }
+        args.pop("recipients")
+        message = EmailMessage(**args)
+        sent = message.send()
+
+        email = Email.objects.get()
+        self.assertEqual(email.recipients, self.plain_args["recipients"][0])
+        self.assertSequenceEqual(mail.outbox[0].to, self.plain_args["recipients"])
+        self.assertEqual(email.cc_recipients, "; ".join(args["cc"]))
+        self.assertSequenceEqual(mail.outbox[0].cc, args["cc"])
+        self.assertEqual(email.bcc_recipients, "; ".join(args["bcc"]))
+        self.assertSequenceEqual(mail.outbox[0].bcc, args["bcc"])
+
         self.assertEmailOK(sent)
 
     @override_settings(EMAIL_LOG_SAVE_ATTACHMENTS=True)
