@@ -1,7 +1,7 @@
 CHANGES
 =======
 
-1.5.0 (Under development)
+1.5.0 (2024-10-08)
 -------------------------
 
 - Add Django 5.0 and 5.1 support
