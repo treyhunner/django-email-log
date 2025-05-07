@@ -1,5 +1,6 @@
 import pathlib
 
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -7,13 +8,14 @@ from .conf import settings
 
 
 class Email(models.Model):
-
     """Model to store outgoing email information"""
 
     from_email = models.TextField(_("from email"))
     recipients = models.TextField(_("recipients"))
     cc_recipients = models.TextField(_("cc recipients"), blank=True)
     bcc_recipients = models.TextField(_("bcc recipients"), blank=True)
+    reply_to = models.TextField(_("reply to"), blank=True, default="")
+    extra_headers = models.JSONField(encoder=DjangoJSONEncoder, default=dict)
     subject = models.TextField(_("subject"))
     body = models.TextField(_("body"))
     ok = models.BooleanField(_("ok"), default=False, db_index=True)
@@ -43,7 +45,6 @@ def get_attachment_path(instance, filename: str) -> str:
 
 
 class Attachment(models.Model):
-
     """Model to store attachments of outgoing email"""
 
     file = models.FileField(
