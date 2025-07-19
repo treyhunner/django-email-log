@@ -3,7 +3,62 @@ import json
 from django.contrib import admin
 from django.template.defaultfilters import linebreaksbr
 from django.utils.html import format_html
-from .models import Attachment, Email
+from django.utils.translation import gettext as _
+
+from .models import Attachment, Email, Log
+
+
+class LogInline(admin.StackedInline):
+    model = Log
+    readonly_fields = [
+        "type",
+        "timestamp",
+        "esp",
+        "event_id",
+        "reject_reason",
+        "mta_response",
+        "tags",
+        "user_agent",
+        "click_url",
+        "raw",
+    ]
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "type",
+                    "timestamp",
+                    "tags",
+                ),
+            },
+        ),
+        (
+            _("Details"),
+            {
+                "fields": (
+                    "esp",
+                    "event_id",
+                    "mta_response",
+                    "reject_reason",
+                    "user_agent",
+                    "click_url",
+                    "raw",
+                ),
+                "classes": ["collapse"],
+            },
+        ),
+    )
+    extra = 0
+
+    def has_add_permission(self, request, obj):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 class AttachmentInline(admin.StackedInline):
@@ -30,6 +85,15 @@ class AttachmentInline(admin.StackedInline):
     )
     extra = 0
 
+    def has_add_permission(self, request, obj):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 class EmailAdmin(admin.ModelAdmin):
     list_display = ["recipients", "from_email", "subject", "date_sent", "ok"]
@@ -50,6 +114,7 @@ class EmailAdmin(admin.ModelAdmin):
     ]
     inlines = [
         AttachmentInline,
+        LogInline,
     ]
     search_fields = [
         "subject",
