@@ -10,7 +10,6 @@ from .models import Attachment, Email
 
 
 class EmailBackend(BaseEmailBackend):
-
     """Wrapper email backend that records all emails in a database model"""
 
     def __init__(self, **kwargs):

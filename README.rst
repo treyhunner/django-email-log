@@ -23,7 +23,7 @@ django-email-log
 
 Django email backend that logs all sent emails to a database using a Django model.
 
-This app works with Django 4.2 to 5.1.
+This app works with Django 4.2 to 5.2.
 
 This app requires Python 3.8+.
 
@@ -56,3 +56,5 @@ Thanks to the following related projects for inspiration:
 .. _django-celery-email: https://github.com/pmclanahan/django-celery-email
 .. _django-post_office: https://github.com/ui/django-post_office
 .. _stackoverflow answer: http://stackoverflow.com/a/7553759/98187
+
+.. include:: CHANGES.rst

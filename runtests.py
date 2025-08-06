@@ -63,7 +63,7 @@ def runtests():
         runner_class = DjangoTestSuiteRunner
         test_args = ["tests"]
 
-    failures = runner_class(failfast=False).run_tests(test_args)
+    failures = runner_class(failfast=False).run_tests(sys.argv[1:] or test_args)
     sys.exit(failures)
 
 

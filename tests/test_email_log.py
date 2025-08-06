@@ -17,7 +17,7 @@ from email_log.conf import Settings
 import shutil
 import os
 
-FAILING_BACKEND = "email_log.tests.backends.FailingEmailBackend"
+FAILING_BACKEND = "tests.backends.FailingEmailBackend"
 ATTACHMENTS_TEST_FOLDER = "testfiles"
 
 
