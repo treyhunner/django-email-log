@@ -2,7 +2,6 @@ from django.core.mail.backends.base import BaseEmailBackend
 
 
 class FailingEmailBackend(BaseEmailBackend):
-
     """Email backend which always fails to send email"""
 
     def send_messages(self, email_messages):
