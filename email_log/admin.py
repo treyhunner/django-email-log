@@ -36,6 +36,8 @@ class EmailAdmin(admin.ModelAdmin):
         "recipients",
         "cc_recipients",
         "bcc_recipients",
+        "reply_to",
+        "extra_headers",
         "subject",
         "body_formatted",
         "html_message",
@@ -45,7 +47,14 @@ class EmailAdmin(admin.ModelAdmin):
     inlines = [
         AttachmentInline,
     ]
-    search_fields = ["subject", "body", "recipients", "cc_recipients", "bcc_recipients"]
+    search_fields = [
+        "subject",
+        "body",
+        "recipients",
+        "cc_recipients",
+        "bcc_recipients",
+        "extra_headers",
+    ]
     exclude = ["body"]
 
     def has_delete_permission(self, *args, **kwargs):
