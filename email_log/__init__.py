@@ -1,4 +1,4 @@
 default_app_config = "email_log.apps.EmailLogConfig"
 
 
-__version__ = "1.4.0"
+__version__ = "1.5.0"
