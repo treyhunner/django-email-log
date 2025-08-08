@@ -145,6 +145,52 @@ class EmailBackendTests(TestCase):
         sent = self.send_mail(fail_silently=False, **self.plain_args)
         self.assertEmailOK(sent)
 
+    def test_send_message_with_headers(self):
+        text_content = "Test email text content"
+        html_content = "<p>Test email HTML content</p>"
+
+        # Create a multipart email instance.
+        msg = EmailMultiAlternatives(
+            "Subject here",
+            text_content,
+            "from@example.com",
+            ["to@example.com"],
+            headers={"List-Unsubscribe": "<mailto:unsub@example.com>"},
+        )
+
+        # Lastly, attach the HTML content to the email instance and send.
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
+
+        email = Email.objects.get()
+        self.assertTrue(email.extra_headers)
+        self.assertIn("List-Unsubscribe", email.extra_headers.keys())
+        self.assertEqual(
+            email.extra_headers["List-Unsubscribe"], "<mailto:unsub@example.com>"
+        )
+
+    def test_send_message_reply_to(self):
+        args = {
+            **self.plain_args,
+            "to": self.plain_args["recipients"],
+            "reply_to": ["replyto@example.com", "replyto2@example.com"],
+        }
+        args.pop("recipients")
+        message = EmailMessage(**args)
+        sent = message.send()
+
+        email = Email.objects.get()
+        self.assertEqual(email.recipients, self.plain_args["recipients"][0])
+        self.assertSequenceEqual(mail.outbox[0].to, self.plain_args["recipients"])
+        self.assertEqual(email.cc_recipients, "")
+        self.assertSequenceEqual(mail.outbox[0].cc, "")
+        self.assertEqual(email.bcc_recipients, "")
+        self.assertSequenceEqual(mail.outbox[0].bcc, "")
+        self.assertEqual(email.reply_to, "; ".join(args["reply_to"]))
+        self.assertSequenceEqual(mail.outbox[0].reply_to, args["reply_to"])
+
+        self.assertEmailOK(sent)
+
     def test_send_message_cc_bcc(self):
         args = {
             **self.plain_args,
