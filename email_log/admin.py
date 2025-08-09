@@ -82,7 +82,7 @@ class EmailAdmin(admin.ModelAdmin):
             {
                 "classes": ("collapse",),
                 "fields": ("html_message",),
-            }
+            },
         ),
     )
 
@@ -95,8 +95,8 @@ class EmailAdmin(admin.ModelAdmin):
     def html_message_preview(self, obj):
         if obj.html_message:
             return format_html(
-                "<iframe style='border: 1px solid #e8e8e8' srcdoc='{}' width='800px' height='600px'></iframe>",
-                obj.html_message
+                '<iframe style="border: 1px solid #e8e8e8; max-width: 800px; max-height: 600px" srcdoc="{}"></iframe>',  # noqa: ignore E501
+                obj.html_message,
             )
         else:
             return "No HTML content"
