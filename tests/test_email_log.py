@@ -413,6 +413,35 @@ class AdminTests(TestCase):
         page = self.client.get("/admin/email_log/email/add/")
         self.assertEqual(page.status_code, 403)
 
+    @override_settings(EMAIL_BACKEND="email_log.backends.EmailBackend")
+    def test_mail_extra_headers_are_formatted(self):
+        # Create a multipart email instance.
+        msg = EmailMultiAlternatives(
+            "Subject here",
+            "Test email content",
+            "from@example.com",
+            ["to@example.com"],
+            headers={
+                "List-Unsubscribe": "<mailto:unsub@example.com>",
+                "List-Unsubscribe-Link": "https://www.example.com/unsubscribe/",
+            },
+        )
+        msg.send()
+
+        email = Email.objects.get()
+        response = self.client.get(
+            "/admin/email_log/email/{}/".format(email.pk),
+            follow=True,
+        )
+
+        expected_html_snippet = (
+            "<pre>{\n"
+            "  &quot;List-Unsubscribe&quot;: &quot;&lt;mailto:unsub@example.com&gt;&quot;,\n"  # noqa: ignore E501
+            "  &quot;List-Unsubscribe-Link&quot;: &quot;https://www.example.com/unsubscribe/&quot;\n"  # noqa: ignore E501
+            "}</pre>"
+        )
+        self.assertContains(response, expected_html_snippet)
+
     def test_body_is_formatted(self):
         initial = "This\nis\na\ntest"
         email = Email.objects.create(body=initial)
