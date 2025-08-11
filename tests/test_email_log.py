@@ -402,7 +402,22 @@ class EmailBackendTests(TestCase):
             self.assertEqual(saved_attachment.mimetype, type)
 
 
-class AdminTests(TestCase):
+class AdminNonsuperuserTests(TestCase):
+    def setUp(self):
+        # Can login to admin site but is not a superuser
+        user = User(username="user", is_superuser=False, is_staff=True)
+        user.set_password("pass")
+        user.save()
+        self.client.login(username="user", password="pass")
+
+    # Non-superusers should not be able to delete email log entries
+    def test_delete_page(self):
+        email = Email.objects.create()
+        page = self.client.get("/admin/email_log/email/{0}/delete/".format(email.pk))
+        self.assertEqual(page.status_code, 403)
+
+
+class AdminSuperuserTests(TestCase):
     def setUp(self):
         user = User(username="user", is_superuser=True, is_staff=True)
         user.set_password("pass")
@@ -463,10 +478,11 @@ class AdminTests(TestCase):
         self.assertContains(page, "This<br>is<br>a<br>test", html=True)
         self.assertEqual(page.status_code, 200)
 
+    # Superusers can delete email log entries
     def test_delete_page(self):
         email = Email.objects.create()
         page = self.client.get("/admin/email_log/email/{0}/delete/".format(email.pk))
-        self.assertEqual(page.status_code, 403)
+        self.assertEqual(page.status_code, 200)
 
     def test_app_name(self):
         page = self.client.get("/admin/")

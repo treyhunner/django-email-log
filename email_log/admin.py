@@ -60,8 +60,8 @@ class EmailAdmin(admin.ModelAdmin):
     ]
     exclude = ["body", "extra_headers"]
 
-    def has_delete_permission(self, *args, **kwargs):
-        return False
+    def has_delete_permission(self, request, *args, **kwargs):
+        return request.user.is_superuser
 
     def has_add_permission(self, *args, **kwargs):
         return False
