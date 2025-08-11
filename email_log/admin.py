@@ -1,3 +1,5 @@
+import json
+
 from django.contrib import admin
 from django.template.defaultfilters import linebreaksbr
 from django.utils.html import format_html
@@ -38,7 +40,7 @@ class EmailAdmin(admin.ModelAdmin):
         "cc_recipients",
         "bcc_recipients",
         "reply_to",
-        "extra_headers",
+        "headers",
         "subject",
         "body_formatted",
         "html_message",
@@ -57,8 +59,8 @@ class EmailAdmin(admin.ModelAdmin):
         "bcc_recipients",
         "extra_headers",
     ]
-    exclude = ["body", "html_message"]
-    fieldsets = (
+    exclude = ["body", "html_message", "extra_headers"]
+    fieldsets = [
         (
             None,
             {
@@ -68,7 +70,7 @@ class EmailAdmin(admin.ModelAdmin):
                     "cc_recipients",
                     "bcc_recipients",
                     "reply_to",
-                    "extra_headers",
+                    "headers",
                     "subject",
                     "body_formatted",
                     "html_message_preview",
@@ -84,13 +86,18 @@ class EmailAdmin(admin.ModelAdmin):
                 "fields": ("html_message",),
             },
         ),
-    )
+    ]
 
-    def has_delete_permission(self, *args, **kwargs):
-        return False
+    def has_delete_permission(self, request, *args, **kwargs):
+        return request.user.is_superuser
 
     def has_add_permission(self, *args, **kwargs):
         return False
+
+    def headers(self, obj) -> str:
+        return format_html("<pre>{}</pre>", json.dumps(obj.extra_headers, indent=2))
+
+    headers.short_description = "Extra headers"
 
     def html_message_preview(self, obj):
         if obj.html_message:
