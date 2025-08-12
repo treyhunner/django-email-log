@@ -417,17 +417,16 @@ class AdminNonsuperuserTests(TestCase):
         self.assertEqual(page.status_code, 403)
 
 
-class AdminSuperuserTests(TestCase):
+class BaseAdminSuperuserTests(TestCase):
     def setUp(self):
+        super().setUp()
         user = User(username="user", is_superuser=True, is_staff=True)
         user.set_password("pass")
         user.save()
         self.client.login(username="user", password="pass")
 
-    def test_add_page(self):
-        page = self.client.get("/admin/email_log/email/add/")
-        self.assertEqual(page.status_code, 403)
 
+class AdminSuperuserTests(BaseAdminSuperuserTests):
     @override_settings(EMAIL_BACKEND="email_log.backends.EmailBackend")
     def test_mail_extra_headers_are_formatted(self):
         # Create a multipart email instance.
@@ -456,6 +455,36 @@ class AdminSuperuserTests(TestCase):
             "}</pre>"
         )
         self.assertContains(response, expected_html_snippet)
+
+    @override_settings(EMAIL_BACKEND="email_log.backends.EmailBackend")
+    def test_mail_html_preview_is_in_iframe(self):
+        # Create a multipart email instance.
+        msg = EmailMultiAlternatives(
+            "Subject here",
+            "Test email content",
+            "from@example.com",
+            ["to@example.com"],
+        )
+        msg.attach_alternative(
+            """Test email<br /><p><b>Bold pararaph</b></p>""",
+            "text/html",
+        )
+        msg.send()
+
+        email = Email.objects.get()
+        response = self.client.get(
+            f"/admin/email_log/email/{email.pk}/",
+            follow=True,
+        )
+
+        expected_html_snippets = [
+            "<iframe",
+            "Test email&lt;br /&gt;&lt;p&gt;&lt;b&gt;Bold pararaph&lt;/b&gt;&lt;/p&gt;",
+            "</iframe>",
+        ]
+        for expected_html_snippet in expected_html_snippets:
+            with self.subTest(html_snippet=expected_html_snippet):
+                self.assertContains(response, expected_html_snippet, html=False)
 
     def test_body_is_formatted(self):
         initial = "This\nis\na\ntest"
@@ -487,6 +516,34 @@ class AdminSuperuserTests(TestCase):
     def test_app_name(self):
         page = self.client.get("/admin/")
         self.assertContains(page, "Email log")
+
+
+@override_settings(EMAIL_BACKEND="email_log.backends.EmailBackend")
+class AdminWithEmailLogsSuperuserTests(BaseAdminSuperuserTests):
+    def setUp(self):
+        super().setUp()
+        self.email = Email.objects.create(
+            subject="Subject here",
+            body="Test email content",
+            from_email="from@example.com",
+            recipients=["to@example.com"],
+            extra_headers={
+                "List-Unsubscribe": "<mailto:unsub@example.com>",
+                "List-Unsubscribe-Link": "https://www.example.com/unsubscribe/",
+            },
+        )
+
+    def test_list_page(self):
+        page = self.client.get("/admin/email_log/email/")
+        self.assertEqual(page.status_code, 200)
+
+    def test_change_page(self):
+        page = self.client.get(f"/admin/email_log/email/{self.email.pk}/change/")
+        self.assertEqual(page.status_code, 200)
+
+    def test_add_page(self):
+        page = self.client.get("/admin/email_log/email/add/")
+        self.assertEqual(page.status_code, 403)
 
 
 class ChecksTest(TestCase):
