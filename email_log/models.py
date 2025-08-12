@@ -1,5 +1,6 @@
 import pathlib
 
+from django.contrib.postgres.indexes import GinIndex
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -29,6 +30,9 @@ class Email(models.Model):
         verbose_name = _("email")
         verbose_name_plural = _("emails")
         ordering = ("-date_sent",)
+        indexes = [
+            GinIndex(fields=["extra_headers"]),
+        ]
 
 
 def get_attachment_path(instance, filename: str) -> str:
