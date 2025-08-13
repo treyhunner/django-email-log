@@ -1,21 +1,22 @@
-from email.mime.base import MIMEBase
-from typing import Any, Type
+from typing import TYPE_CHECKING, Any, Type
 
 from django.conf import settings
-from django.core.files.base import ContentFile
 from django.core.mail import EmailMessage
 from django.core.mail.backends.base import BaseEmailBackend
 from django.db import transaction
 
-from anymail.webhooks.base import AnymailCoreWebhookView
-from anymail.message import AnymailStatus
-from anymail.signals import AnymailTrackingEvent
-from email_log.models import Email, Attachment, Log as EmailLog
+from email_log.backends import EmailBackend as EmailLogBackend
+from email_log.models import Email, Log as EmailLog
+
+if TYPE_CHECKING:  # pragma: no cover
+    from anymail.webhooks.base import AnymailCoreWebhookView
+    from anymail.message import AnymailStatus
+    from anymail.signals import AnymailTrackingEvent
 
 
 def handle_tracking_event(
-    sender: Type[AnymailCoreWebhookView],
-    event: AnymailTrackingEvent,
+    sender: "Type[AnymailCoreWebhookView]",
+    event: "AnymailTrackingEvent",
     esp_name: str,
     **kwargs: Any,
 ) -> None:
@@ -40,21 +41,14 @@ def handle_tracking_event(
         )
 
 
-def get_html_message(message: EmailMessage) -> str:
-    if hasattr(message, "alternatives") and len(message.alternatives) > 0:
-        for alternative in message.alternatives:
-            if alternative[1] == "text/html":
-                return alternative[0]
-    return ""
-
-
 def log_successful_email(
-    sender: BaseEmailBackend,
-    message: EmailMessage,
-    status: AnymailStatus,
+    sender: "BaseEmailBackend",
+    message: "EmailMessage",
+    status: "AnymailStatus",
     esp_name: str,
     **kwargs: Any,
 ) -> None:
+    backend = EmailLogBackend()
     message_headers = dict(message.message()._headers)
     for key in list(message_headers.keys()):
         if key.lower() in [
@@ -79,29 +73,9 @@ def log_successful_email(
             ),
             subject=message.subject,
             body=message.body,
-            html_message=get_html_message(message),
+            html_message=backend._get_html_message(message),
             ok=True,
         )
 
         if getattr(settings, "EMAIL_LOG_SAVE_ATTACHMENTS", True):
-            for attachment in message.attachments:
-                mimetype = None
-                if isinstance(attachment, MIMEBase):
-                    name = attachment.get_filename()
-                    content = ContentFile(attachment.get_payload())
-                else:
-                    name, content, attachment_type = attachment
-                    content = ContentFile(content)
-                    if attachment_type != "application/octet-stream":
-                        mimetype = attachment_type
-
-                db_attachment = Attachment.objects.create(
-                    email=email,
-                    name=name,
-                    mimetype=mimetype,
-                )
-                db_attachment.file.save(
-                    filename=name,
-                    content=content,
-                    save=True,
-                )
+            backend._log_attachments(email=email, message=message)

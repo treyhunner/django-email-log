@@ -28,6 +28,7 @@ class Migration(migrations.Migration):
                     "email",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
+                        related_name="logs",
                         to="email_log.email",
                         verbose_name="email",
                     ),

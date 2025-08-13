@@ -9,9 +9,10 @@ from django.contrib.auth.models import User
 from django.core.files.base import ContentFile
 from django.core.mail import EmailMessage, EmailMultiAlternatives, send_mail
 from django.core import mail
+from django.utils.timezone import now
 from email.mime.text import MIMEText
 
-from email_log.models import Attachment, Email
+from email_log.models import Attachment, Email, Log
 from email_log.conf import Settings
 
 import shutil
@@ -42,6 +43,34 @@ class EmailModelTests(TestCase):
             ok=True,
         )
         self.assertEqual(str(email), "to@example.com: Subject line")
+
+
+class LogModelTests(TestCase):
+    def test_str(self):
+        email = Email.objects.create(
+            from_email="from@example.com",
+            recipients="to@example.com",
+            cc_recipients="cc@example.com",
+            bcc_recipients="bcc@example.com",
+            subject="Subject line",
+            body="Message body",
+            ok=True,
+        )
+        log = Log.objects.create(
+            email=email,
+            esp="testesp",
+            metadata={"data": "about the thing"},
+            type="custom_event",
+            timestamp=now(),
+            event_id="1234",
+            mta_response="Response from MTA is: wonderful",
+            reject_reason="The email was not rejected",
+            tags=["tagone", "tagtwo", "tagthree"],
+            user_agent="Firefox, the awesomest browser",
+            click_url="https://example.com/django-email-log",
+            raw={"raw": "data"},
+        )
+        self.assertEqual(str(log), "custom_event")
 
 
 class AttachmentModelTests(TestCase):

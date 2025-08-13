@@ -73,7 +73,9 @@ class Attachment(models.Model):
 
 
 class Log(models.Model):
-    email = models.ForeignKey(Email, verbose_name=_("email"), on_delete=models.CASCADE)
+    email = models.ForeignKey(
+        Email, related_name="logs", verbose_name=_("email"), on_delete=models.CASCADE
+    )
     esp = models.CharField(verbose_name=_("ESP"), max_length=255)
     metadata = models.JSONField()
     type = models.CharField(max_length=255)
