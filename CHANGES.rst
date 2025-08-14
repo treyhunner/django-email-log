@@ -1,12 +1,16 @@
 CHANGES
 =======
 
-1.5.0 (Under development)
--------------------------
+1.5.0 (2025-08-14)
+------------------
 
 - Add Django 5.0 and 5.1 support
 - Remove support from all Django versions prior to 4.2 and corresponding python versions
 - Save cc and bcc fields in the database
+- Save reply-to and extra headers to the database
+- Allow superusers to delete emails in the Django admin
+- Add a Log model to save individul events from email service providers
+- Add signal handlers to support django-anymail
 
 
 1.4.0 (2023-04-06)
