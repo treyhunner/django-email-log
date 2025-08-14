@@ -1,5 +1,6 @@
 import pathlib
 
+from django.contrib.postgres.indexes import GinIndex
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -29,6 +30,9 @@ class Email(models.Model):
         verbose_name = _("email")
         verbose_name_plural = _("emails")
         ordering = ("-date_sent",)
+        indexes = [
+            GinIndex(fields=["extra_headers"]),
+        ]
 
 
 def get_attachment_path(instance, filename: str) -> str:
@@ -66,3 +70,26 @@ class Attachment(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Log(models.Model):
+    email = models.ForeignKey(
+        Email, related_name="logs", verbose_name=_("email"), on_delete=models.CASCADE
+    )
+    esp = models.CharField(verbose_name=_("ESP"), max_length=255)
+    metadata = models.JSONField()
+    type = models.CharField(max_length=255)
+    timestamp = models.DateTimeField()
+    event_id = models.TextField()
+    mta_response = models.TextField(verbose_name=_("MTA Response"), null=True)
+    reject_reason = models.TextField(null=True)
+    tags = models.JSONField()
+    user_agent = models.TextField(null=True)
+    click_url = models.URLField(verbose_name="Click URL", null=True, max_length=4192)
+    raw = models.JSONField()
+
+    class Meta:
+        ordering = ["email", "timestamp"]
+
+    def __str__(self):
+        return self.type

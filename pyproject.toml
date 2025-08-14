@@ -33,6 +33,11 @@ dynamic = [
     "version",
 ]
 
+[project.optional-dependencies]
+test = [
+    "django-anymail",
+]
+
 [project.readme]
 file = "README.rst"
 content-type = "text/x-rst"

@@ -54,6 +54,23 @@ Or you can even provide callable object just like for `FileField.upload_to`
 
     EMAIL_LOG_ATTACHMENTS_PATH = get_path
 
+If you use `django-anymail`_ then django-email-log can use Anymail signals to
+log updates from the configured ESP. If you wish to use this feature, you must
+set:
+
+.. code-block:: python
+
+    EMAIL_LOG_CONNECT_ANYMAIL_SIGNALS = True
+
+in your project's `settings.py`. This setting may change in a future version of
+django-email-log, so if you do not wish to use Anymail signals you should
+explicitly set this to `False`:
+
+.. code-block:: python
+
+    EMAIL_LOG_CONNECT_ANYMAIL_SIGNALS = False
+
+.. _django-anymail: https://github.com/anymail/django-anymail
 
 
 Using with other email backends
