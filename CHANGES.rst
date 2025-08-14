@@ -1,8 +1,8 @@
 CHANGES
 =======
 
-1.5.0 (2024-10-08)
--------------------------
+1.5.0 (2025-08-14)
+------------------
 
 - Add Django 5.0 and 5.1 support
 - Remove support from all Django versions prior to 4.2 and corresponding python versions
