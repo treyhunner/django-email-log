@@ -1,3 +1,6 @@
+_default:
+    @just --list --unsorted
+
 # Build docs, clean up build files, and run the tests
 all: init docs clean test
 
