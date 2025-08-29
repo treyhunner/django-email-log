@@ -34,8 +34,20 @@ dynamic = [
 ]
 
 [project.optional-dependencies]
+build = [
+    "build",
+    "twine",
+]
+docs = [
+    "Sphinx",
+]
 test = [
+    "coverage",
     "django-anymail",
+    "pytest",
+    "pytest-cov",
+    "pytest-django",
+    "tox",
 ]
 
 [project.readme]
