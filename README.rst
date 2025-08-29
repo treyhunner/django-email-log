@@ -41,6 +41,17 @@ a pull request.
 
 .. _PyPI: https://pypi.python.org/pypi/django-email-log/
 
+Building and Publishing Releases
+--------------------------------
+
+This project uses a ``Justfile`` to wrap commands and their dependencies.
+
+- ``just test`` - Run tests with ``tox`` and generate coverage report
+- ``just build`` (or ``just dist``) - Build source distribution (sdist) and wheel packages in ``dist/``
+- ``just test-release`` - Publish packages in ``dist/`` to test.pypi.org
+- ``just release`` - Publish packages to PyPI
+
+You can check out all of the Just recipes with ``just --list``.
 
 Related Projects
 ----------------
