@@ -1,5 +1,7 @@
+# Build docs, clean up build files, and run the tests
 all: init docs clean test
 
+# Delete build files and coverage files
 clean: _clean-build _clean-pyc
 	rm -fr htmlcov/
 
@@ -25,22 +27,28 @@ _venv-docs: _venv
 _venv-test: _venv
 	.venv/bin/python3 -m pip install .[test]
 
+# Initialize virtual environment in .venv
 init: _venv-build _venv-test _venv-docs
 
+# Run tests with tox and generate coverage report
 test: _venv-test
 	.venv/bin/python3 -m coverage erase
 	.venv/bin/python3 -m tox
 	.venv/bin/python3 -m coverage html
 
+# Build documentation in docs/
 docs: _venv-build
 	.venv/bin/sphinx-build -b html -d docs/_build/doctrees docs docs/_build/html
 
+# Build source distribution (sdist) and wheel packages in dist/
 build: clean _venv-build
 	.venv/bin/python3 -m build
 	.venv/bin/python3 -m twine check dist/*
 
+# Publish packages in dist/ to test.pypi.org
 test-release:
 	.venv/bin/python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
+# Publish packages in dist/ to PyPI
 release: build
 	.venv/bin/python3 -m twine upload dist/*
